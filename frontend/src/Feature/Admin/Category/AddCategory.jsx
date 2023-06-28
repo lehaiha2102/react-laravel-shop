@@ -8,6 +8,7 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useSnackbar } from "notistack";
+import { Link } from "react-router-dom";
 
 const currencies = [
   {
@@ -197,6 +198,9 @@ function AddCategory() {
         </div>
 
         <div className="submit-btn">
+        <Link to="/admin/categories" className="back-btn">
+          Back
+        </Link>
           <Button className="category-submit" disabled={isSubmitting} type="submit">
             Add Category
           </Button>

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 function Header() {
     return ( 
@@ -10,8 +11,7 @@ function Header() {
            </div>
            <nav className="menu">
             <ul className="text-title">
-                <li><a href="#">Corporate</a></li>
-                <li><a href="#">About</a></li>
+                <li><a href="#"><AccountCircleIcon/></a></li>
             </ul>
         </nav>
         </header>

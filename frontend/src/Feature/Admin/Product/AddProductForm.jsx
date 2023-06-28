@@ -107,8 +107,6 @@ function AddProductForm() {
 
     loadImages();
   };
-
-  console.log(selectedGallery);
   const schema = yup.object({
     image: yup
       .mixed()
@@ -255,7 +253,7 @@ function AddProductForm() {
                     size="small"
                     onClick={() => handleDeleteValue(value)}
                   >
-                    <DeleteIcon  className="icon"/>
+                    <DeleteIcon className="icon" />
                   </IconButton>
                 </div>
               ))}
