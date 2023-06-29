@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -24,29 +25,41 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
+        $imageName = null;
+
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('images/categories'), $imageName);
         }
-        $parent_category = $request->parent_category !== '--Select--' ? $request->parent_category : null;
-        $categories = DB::table('categories')->insert([
-            'name'                        => $request->name,
-            'slug'                        => uniqid() . '-' . Str::slug($request->name),
-            'parent_category'             => $parent_category,
-            'image'                       => $imageName ?? null,
-            'description'                 => $request->description,
-            'status' => true,
-            'created_at'                  => DB::raw('NOW()'),
-            'updated_at'                  => DB::raw('NOW()')
-        ]);
 
-        return response()->json(
-            [
-                'status'                  => 'success',
-                'data'                    => $categories,
-            ]
-        );
+        $icon_name = null;
+
+        if ($request->hasFile('icon')) {
+            $icon = $request->file('icon');
+            $icon_name = time() . '.' . $icon->getClientOriginalExtension();
+            $icon->move(public_path('images/categories'), $icon_name);
+        }
+
+        $parentCategory = $request->parent_category !== '--Select--' ? $request->parent_category : null;
+
+        $data = [
+            'name' => $request->name,
+            'slug' => uniqid() . '-' . Str::slug($request->name),
+            'parent_category' => $parentCategory,
+            'image' => $imageName,
+            'icon' => $icon_name,
+            'description' => $request->description,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ];
+
+        DB::table('categories')->insert([$data]);
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $data,
+        ]);
     }
 
     public function update(Request $request, $id)

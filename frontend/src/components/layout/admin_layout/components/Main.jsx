@@ -1,6 +1,7 @@
 
 import Header from "./Header";
 import './css/style.scss';
+import './css/mobile.scss';
 import Sidebar from "./sidebar";
 
 function Main({ children }) {

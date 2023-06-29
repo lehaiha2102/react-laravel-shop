@@ -1,19 +1,39 @@
-import AddIcon from "@mui/icons-material/Add";
-import Box from "@mui/material/Box";
-import Pagination from "@mui/material/Pagination";
-import Paper from "@mui/material/Paper";
-import Stack from "@mui/material/Stack";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import * as React from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import TextField from "@mui/material/TextField";
-import * as React from "react";
+import Paper from "@mui/material/Paper";
 import { useState } from "react";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
 import { Link } from "react-router-dom";
+import AddIcon from "@mui/icons-material/Add";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import MenuItem from "@mui/material/MenuItem";
 
+const currencies = [
+  {
+    value: "USD",
+    label: "$",
+  },
+  {
+    value: "EUR",
+    label: "€",
+  },
+  {
+    value: "BTC",
+    label: "฿",
+  },
+  {
+    value: "JPY",
+    label: "¥",
+  },
+];
 
 function createData(name, calories, fat, carbs, protein, detail, action) {
   return { name, calories, fat, carbs, protein, detail, action };
@@ -25,7 +45,7 @@ const rows = [
   createData("Eclair", 262, 16.0, 24, 6.0, 10, 20),
 ];
 
-function Category() {
+function Coupons() {
   const [isClicked, setIsClicked] = useState(false);
 
   const changeBorderColor = () => {
@@ -39,7 +59,7 @@ function Category() {
   return (
     <>
       <div className="page-title">
-        <span className="title text-title">Categories</span>
+        <span className="title text-title">Couponts</span>
         {/* <SearchIcon className="search-btn"/> */}
 
         <input
@@ -76,7 +96,7 @@ function Category() {
           </div>
         </Box>
 
-        <Link to="/admin/categories/add-category" className="add-btn text-title">
+        <Link to="/admin/coupons/add-coupon" className="add-btn text-title">
           <AddIcon />
           Add
         </Link>
@@ -121,4 +141,4 @@ function Category() {
   );
 }
 
-export default Category;
+export default Coupons;

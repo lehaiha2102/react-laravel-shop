@@ -38,13 +38,13 @@ function Sidebar() {
           </Link>
         </li>
         <li className="menu-item color-gray">
-          <Link to="5">
+          <Link to="/admin/manufacturers">
             <WarehouseIcon className="menu-icon" />
             <span className="menu-title text-title">Manuafacturers</span>
           </Link>
         </li>
         <li className="menu-item color-gray">
-          <Link to="6">
+          <Link to="/admin/coupons">
             <CardGiftcardIcon className="menu-icon" />
             <span className="menu-title text-title">Coupons</span>
           </Link>

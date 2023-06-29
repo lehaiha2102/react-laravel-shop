@@ -40,9 +40,6 @@ const currencies = [
   },
 ];
 
-AddProductForm.propTypes = {
-  onSubmit: PropTypes.func,
-};
 function AddProductForm() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedGallery, setSelectedGallery] = useState([]);
@@ -107,45 +104,9 @@ function AddProductForm() {
 
     loadImages();
   };
-  const schema = yup.object({
-    image: yup
-      .mixed()
-      .test("is-image", "Invalid image format", (value) => {
-        if (!value) {
-          return true;
-        }
 
-        const supportedExtensions = /(png|jpe?g)$/;
-        return supportedExtensions.test(value.name.toLowerCase());
-      })
-      .required("Please upload an image"),
-
-    name: yup.string().required("Please enter the name"),
-    icon: yup.string().required("Please select an icon"),
-    parent_category: yup.string().required("Please select a parent category"),
-    details: yup.string().required("Please enter the details"),
-  });
-
-  const form = useForm({
-    defaultValues: {
-      image: "",
-      name: "",
-      icon: "",
-      parent_category: "",
-      details: "",
-    },
-    resolver: yupResolver(schema),
-  });
-
-  const handleSubmit = async (values) => {
-    const { onSubmit } = props;
-    if (onSubmit) {
-      await onSubmit(values);
-    }
-  };
-  const { isSubmitting } = form.formState;
   return (
-    <form onSubmit={form.handleSubmit(handleSubmit)}>
+    <form>
       <div className="row image-upload">
         <div className="upload-title col-md-4">
           <div className="title text-title">Featured Image</div>
@@ -169,7 +130,7 @@ function AddProductForm() {
             name="image"
             className="image-category"
             onChange={handleImageUpload}
-            form={form}
+           
           />
           <div className="category-image-show">
             {selectedImage && <img src={selectedImage} alt="uploaded image" />}
@@ -202,7 +163,7 @@ function AddProductForm() {
             name="gallery-image"
             className="image-category"
             onChange={handleGalleryUpload}
-            form={form}
+           
           />
           <div className="category-image-show">
             {selectedGallery.map((image, index) => (
@@ -234,7 +195,7 @@ function AddProductForm() {
             onChange={handleCategoryChange}
             SelectProps={{
               multiple: true,
-              renderValue: (selected) => selected.join(", "), // Hiển thị các giá trị đã chọn dưới dạng chuỗi
+              renderValue: (selected) => selected.join(", "),
             }}
           >
             {currencies.map((option) => (
@@ -266,7 +227,7 @@ function AddProductForm() {
             select
             defaultValue=""
             label="Manufacture"
-            form={form}
+           
             name="manufacture"
           >
             {currencies.map((option) => (
@@ -293,7 +254,7 @@ function AddProductForm() {
             label="Name"
             variant="outlined"
             className="category-input-data"
-            form={form}
+           
             name="name"
           />
           <TextField
@@ -301,7 +262,7 @@ function AddProductForm() {
             label="Price"
             variant="outlined"
             className="category-input-data"
-            form={form}
+           
             name="price"
             type="number"
           />
@@ -310,7 +271,7 @@ function AddProductForm() {
             label="Sale Price"
             variant="outlined"
             className="category-input-data"
-            form={form}
+           
             name="sale_price"
             type="number"
           />
@@ -319,7 +280,7 @@ function AddProductForm() {
             label="Quantity"
             variant="outlined"
             className="category-input-data"
-            form={form}
+           
             name="quantity"
             type="number"
           />
@@ -327,7 +288,7 @@ function AddProductForm() {
             className="category-input-data"
             placeholder="Details"
             name="details"
-            form={form}
+           
           />
           <FormControl className="status">
             <FormLabel id="demo-radio-buttons-group-label">Status</FormLabel>
@@ -376,7 +337,6 @@ function AddProductForm() {
 
         <Button
           className="product-submit"
-          disabled={isSubmitting}
           type="submit"
         >
           Add Product

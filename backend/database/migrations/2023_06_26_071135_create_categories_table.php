@@ -20,7 +20,7 @@ class CreateCategoriesTable extends Migration
             $table->unsignedBigInteger('parent_category')->nullable();
             $table->string('image');
             $table->text('description');
-            $table->boolean('status')->default(true);
+            $table->string('icon');
             $table->foreign('parent_category')
                   ->references('id')
                   ->on('categories')

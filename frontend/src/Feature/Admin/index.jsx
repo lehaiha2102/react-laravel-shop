@@ -7,6 +7,10 @@ import AddProduct from './Product/AddProduct';
 import Attribute from './Attribute/Attribute';
 import Main from '../../components/layout/admin_layout/components/Main';
 import AddAttribute from './Attribute/AddAttribute';
+import Manufacturer from './Manufacture/Manufacturers';
+import AddManufacturer from './Manufacture/AddManufacturer';
+import Coupons from './Coupons/Coupons';
+import AddCoupon from './Coupons/AddCoupon';
 
 
 function Admin() {
@@ -21,6 +25,10 @@ function Admin() {
           <Route path='/products/add-product' element={<AddProduct/>}/>
           <Route path='/attributes' element={<Attribute/>}/>
           <Route path='/attributes/add-attribute' element={<AddAttribute/>}/>
+          <Route path='/manufacturers' element={<Manufacturer/>}/>
+          <Route path='/manufacturers/add-manufacturer' element={<AddManufacturer/>}/>
+          <Route path='/coupons' element={<Coupons/>}/>
+          <Route path='/coupons/add-coupon' element={<AddCoupon/>}/>
           <Route path='*' element={<PageNotFound/>} />
         </Routes>
       </Main>
