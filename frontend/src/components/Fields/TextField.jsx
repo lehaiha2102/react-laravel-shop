@@ -22,6 +22,7 @@ function MyInputField(props) {
             render={({ field, fieldState }) => (
                 <TextField
                     {...field}
+                    className="category-input-data"
                     variant='outlined'
                     margin="normal"
                     autoFocus

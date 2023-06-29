@@ -67,11 +67,6 @@ function Category() {
                 native: true,
               }}
             >
-              {currencies.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
             </TextField>
           </div>
         </Box>
