@@ -6,14 +6,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class GlobalController extends Controller
+class CouponController extends Controller
 {
-    public function index()
-    {
-        $global = DB::table('globals')->get();
+    public  function  index(){
+        $coupons = DB::table('coupons')->paginate(25);
         return response()->json([
-            'status' => 'success',
-            'data' => $global
+            'status'  => 'success',
+            'data'    => $coupons,
         ]);
     }
 
@@ -21,16 +20,16 @@ class GlobalController extends Controller
     {
         try {
             $data = [
-                'logo' => $request->input('logo'),
-                'slider' => $request->input('slider'),
-                'address' => $request->input('address'),
-                'phone' => $request->input('phone'),
-                'email' => $request->input('email'),
-                'facebook' => $request->input('facebook'),
-                'instagram' => $request->input('instagram'),
+                'image' => $request->input('image'),
+                'code' => json_encode($request->input('code')),
+                'description' => $request->input('description'),
+                'type' => $request->input('type'),
+                'minimum_cart_amount' => $request->input('minimum_cart_amount'),
+                'date_start' => $request->input('date_start'),
+                'date_end' => $request->input('date_end'),
             ];
 
-            DB::table('globals')->insert([$data]);
+            DB::table('coupons')->insert([$data]);
 
             return response()->json([
                 'status' => 'success',
@@ -47,18 +46,18 @@ class GlobalController extends Controller
 
     public function edit($id)
     {
-        $global = DB::table('globals')->get();
+        $coupons = DB::table('coupons')->get();
         $left = 0;
-        $right = count($global) - 1;
+        $right = count($coupons) - 1;
 
         while ($left <= $right) {
             $mid = floor(($left + $right) / 2);
-            $currentId = $global[$mid]->id;
+            $currentId = $coupons[$mid]->id;
 
             if ($currentId == $id) {
                 return response()->json([
                     'status' => "success",
-                    "data" => $global[$mid],
+                    "data" => $coupons[$mid],
                 ]);
             } elseif ($currentId < $id) {
                 $left = $mid + 1;
@@ -77,16 +76,16 @@ class GlobalController extends Controller
     {
         try {
             $data = [
-                'logo' => $request->input('logo'),
-                'slider' => json_encode($request->input('slider')),
-                'address' => $request->input('address'),
-                'phone' => $request->input('phone'),
-                'email' => $request->input('email'),
-                'facebook' => $request->input('facebook'),
-                'instagram' => $request->input('instagram'),
+                'image' => $request->input('image'),
+                'code' => json_encode($request->input('code')),
+                'description' => $request->input('description'),
+                'type' => $request->input('type'),
+                'minimum_cart_amount' => $request->input('minimum_cart_amount'),
+                'date_start' => $request->input('date_start'),
+                'date_end' => $request->input('date_end'),
             ];
 
-            DB::table('globals')->where('id', $id)->update([$data]);
+            DB::table('coupons')->where('id', $id)->update([$data]);
 
             return response()->json([
                 'status' => 'success',
@@ -103,7 +102,7 @@ class GlobalController extends Controller
 
     public function destroy($id)
     {
-        $affectedRows = DB::table('globals')->where('id', $id)->delete();
+        $affectedRows = DB::table('coupons')->where('id', $id)->delete();
 
         if ($affectedRows > 0) {
             return response()->json(["message" => "success"]);
