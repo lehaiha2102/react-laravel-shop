@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
 class AttributesController extends Controller
 {
@@ -20,16 +19,25 @@ class AttributesController extends Controller
 
     public function store(Request $request)
     {
-        $data = [
-            'name' => $request->name,
-            'value' => $request->value,
-            'created_at' => DB::raw('NOW()'),
-            'updated_at' => DB::raw('NOW()')
-        ];
+        try {
+            $data = [
+                'name' => $request->name,
+                'value' => $request->value,
+                'created_at' => DB::raw('NOW()'),
+                'updated_at' => DB::raw('NOW()')
+            ];
 
-        DB::table('attributes')->insert([$data]);
+            DB::table('attributes')->insert([$data]);
 
-        return response()->json(["message" => "success"]);
+            return response()->json(["message" => "success"]);
+        } catch (\Exception $e){
+            // handle error here, and return error message to user, etc .
+            return response()->json([
+                'status' => 'error',
+                'message' => 'An error occurred during data saving.',
+                'error' => $e,
+            ]);
+        }
     }
 
     public function edit($id)
@@ -62,16 +70,25 @@ class AttributesController extends Controller
 
     public function update(Request $request, $id)
     {
-        $data = [
-            'name' => $request->name,
-            'value' => $request->value,
-            'created_at' => DB::raw('NOW()'),
-            'updated_at' => DB::raw('NOW()')
-        ];
+        try {
+            $data = [
+                'name' => $request->name,
+                'value' => $request->value,
+                'created_at' => DB::raw('NOW()'),
+                'updated_at' => DB::raw('NOW()')
+            ];
 
-        DB::table('attributes')->where('id', $id)->update($data);
+            DB::table('attributes')->where('id', $id)->update($data);
 
-        return response()->json(["message" => "success"]);
+            return response()->json(["message" => "success"]);
+        } catch (\Exception $e){
+            // handle error here, and return error message to user, etc .
+            return response()->json([
+                'status' => 'error',
+                'message' => 'An error occurred during data saving.',
+                'error' => $e,
+            ]);
+        }
     }
 
     public function destroy($id)

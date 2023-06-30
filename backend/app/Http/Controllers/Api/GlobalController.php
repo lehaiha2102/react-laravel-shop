@@ -28,6 +28,8 @@ class GlobalController extends Controller
                 'email' => $request->input('email'),
                 'facebook' => $request->input('facebook'),
                 'instagram' => $request->input('instagram'),
+                'created_at' => DB::raw('NOW()'),
+                'updated_at' => DB::raw('NOW()')
             ];
 
             DB::table('globals')->insert([$data]);
@@ -84,6 +86,7 @@ class GlobalController extends Controller
                 'email' => $request->input('email'),
                 'facebook' => $request->input('facebook'),
                 'instagram' => $request->input('instagram'),
+                'updated_at' => DB::raw('NOW()')
             ];
 
             DB::table('globals')->where('id', $id)->update([$data]);

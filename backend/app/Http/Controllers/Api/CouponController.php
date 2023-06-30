@@ -27,6 +27,8 @@ class CouponController extends Controller
                 'minimum_cart_amount' => $request->input('minimum_cart_amount'),
                 'date_start' => $request->input('date_start'),
                 'date_end' => $request->input('date_end'),
+                'created_at' => DB::raw('NOW()'),
+                'updated_at' => DB::raw('NOW()')
             ];
 
             DB::table('coupons')->insert([$data]);
@@ -83,6 +85,7 @@ class CouponController extends Controller
                 'minimum_cart_amount' => $request->input('minimum_cart_amount'),
                 'date_start' => $request->input('date_start'),
                 'date_end' => $request->input('date_end'),
+                'updated_at' => DB::raw('NOW()')
             ];
 
             DB::table('coupons')->where('id', $id)->update([$data]);

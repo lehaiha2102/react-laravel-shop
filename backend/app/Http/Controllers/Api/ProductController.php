@@ -9,183 +9,145 @@ use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
-    public function index()
-    {
-        $products = DB::table('products')
-            ->select('products.*', DB::raw('GROUP_CONCAT(DISTINCT categories.name SEPARATOR ", ") as category_names'), 'manufacturers.name as manufacturer_name')
-            ->join('product_categories', 'product_categories.product_id', '=', 'products.id')
-            ->join('categories', 'categories.id', '=', 'product_categories.category_id')
-            ->join('manufacturers', 'manufacturers.id', '=', 'products.manufacturer_id')
-            ->groupBy('products.id', 'products.name', 'products.slug', 'manufacturers.name')
-            ->paginate(25);
-
-            return response()->json(
-                [
-                    'status'                  => 'success',
-                    'data'                    => $products,
-                ]
-            );
+    public  function  index(){
+        $products = DB::table('products')->paginate(25);
+        return response()->json([
+            'status' => 'success',
+            'data'   => $products
+        ]);
     }
 
+    public function store(Request $request) {
+        try{
+            $imageName = null;
 
-    public function store(Request $request)
-    {
-        $uploadimages = array();
-        if ($images = $request->file('images')) {
-            foreach ($images as $image) {
-                $imageName = uniqid() . '.' . $image->getClientOriginalExtension();
-                $image->move(public_path('images/products'), $imageName);
-                $uploadimages[] = $imageName;
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = time() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('images/categories'), $imageName);
             }
-        }
-        $imagesJson = json_encode($uploadimages);
 
-        $product_id = DB::table('products')->insertGetId([
-            'name' => $request->name,
-            'slug' => uniqid() . '-' . Str::slug($request->name),
-            'manufacturer_id' => $request->manufacturer_id,
-            'import_price' => $request->import_price,
-            'price' => $request->price,
-            'quantity' => $request->quantity,
-            'description' => $request->description,
-            'images' => $imagesJson,
-            'status' => true,
-            'created_at' => DB::raw('NOW()'),
-            'updated_at' => DB::raw('NOW()')
-        ]);
-        $categoryIds = $request->input('category_id', []);
-        foreach ($categoryIds as $categoryId) {
-            DB::table('product_categories')->insert([
-                'product_id' => $product_id,
-                'category_id' => $categoryId,
+            $galleryName = null;
+
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $galleryName = time() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('images/categories'), $galleryName);
+            }
+            $data = [
+                'name' => $request->input('name'),
+                'slug' => Str::slug($request->input('name')),
+                'image' => $imageName,
+                'gallery' => json_encode($galleryName),
+                'price' => $request->input('price'),
+                'sale_price' => $request->input('sale_price'),
+                'quantity' => $request->input('quantity'),
+                'descriptions' => $request->input('description'),
+                'categories' => json_encode($request->input('categories')),
+                'manufacturer' => $request->input('manufacturer'),
                 'created_at' => DB::raw('NOW()'),
                 'updated_at' => DB::raw('NOW()')
+            ];
+
+            DB::table('products')->insert([$data]);
+
+            return response()->json([
+                'status' => 'success',
+            ]);
+        } catch (\Exception $e) {
+            //handle error here, and return error message to user, etc...
+            return response()->json([
+                'status' => 'error',
+                'message' => 'An error occurred during data saving.',
+                'error' => $e,
             ]);
         }
-        return response()->json(
-            [
-                'status'                  => 'success',
-            ]
-        );
     }
 
     public function edit($id)
     {
-        $products = DB::table('products')
-            ->where('products.id', $id)
-            ->select(
-                'products.*',
-                DB::raw('GROUP_CONCAT(DISTINCT categories.name SEPARATOR ", ") as category_names'),
-                DB::raw('GROUP_CONCAT(DISTINCT categories.id SEPARATOR ", ") as category_ids'),
-                'manufacturers.name as manufacturer_name'
-            )
-            ->join('product_categories', 'product_categories.product_id', '=', 'products.id')
-            ->join('categories', 'categories.id', '=', 'product_categories.category_id')
-            ->join('manufacturers', 'manufacturers.id', '=', 'products.manufacturer_id')
-            ->groupBy('products.id')
-            ->get();
-        $categories = DB::table('categories')->get();
-        $manufacturers = DB::table('manufacturers')->get();
+        $products = DB::table('products')->get();
+        $left = 0;
+        $right = count($products) - 1;
 
-        $data = array($products, $categories, $manufacturers);
-        return response()->json(
-            [
-                'status'                  => 'success',
-                'data'                    => $data,
-            ]
-        );
-    }
+        while ($left <= $right) {
+            $mid = floor(($left + $right) / 2);
+            $currentId = $products[$mid]->id;
 
-    public function update(Request $request, $id)
-{
-    $uploadImages = array();
-    if ($images = $request->file('images')) {
-        foreach ($images as $image) {
-            $imageName = uniqid() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('images/products'), $imageName);
-            $uploadImages[] = $imageName;
-        }
-    }
-    $imagesJson = json_encode($uploadImages);
-
-    $product = DB::table('products')->where('id', $id)->first();
-
-    if ($product) {
-        // Xóa hình ảnh cũ nếu có
-        if (!empty($product->images)) {
-            $oldImages = json_decode($product->images);
-            foreach ($oldImages as $oldImage) {
-                $imagePath = public_path('images/products/' . $oldImage);
-                if (file_exists($imagePath)) {
-                    unlink($imagePath);
-                }
+            if ($currentId == $id) {
+                return response()->json([
+                    'status' => "success",
+                    "data" => $products[$mid],
+                ]);
+            } elseif ($currentId < $id) {
+                $left = $mid + 1;
+            } else {
+                $right = $mid - 1;
             }
         }
 
-        // Cập nhật thông tin sản phẩm
-        DB::table('products')->where('id', $id)->update([
-            'name' => $request->name,
-            'slug' => uniqid() . '-' . Str::slug($request->name),
-            'manufacturer_id' => $request->manufacturer_id,
-            'import_price' => $request->import_price,
-            'price' => $request->price,
-            'quantity' => $request->quantity,
-            'description' => $request->description,
-            'images' => $imagesJson,
-            'status' => true,
-            'updated_at' => DB::raw('NOW()')
+        return response()->json([
+            'status' => "error",
+            "message" => "Variable not found.",
         ]);
+    }
 
-        $categoryIds = $request->input('category_id', []);
-        DB::table('product_categories')->where('product_id', $id)->delete();
-        foreach ($categoryIds as $categoryId) {
-            DB::table('product_categories')->insert([
-                'product_id' => $id,
-                'category_id' => $categoryId,
+    public function update(Request $request, $id)
+    {
+        try {
+            $imageName = null;
+
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = time() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('images/categories'), $imageName);
+            }
+
+            $galleryName = null;
+
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $galleryName = time() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('images/categories'), $galleryName);
+            }
+            $data = [
+                'name' => $request->input('name'),
+                'slug' => Str::slug($request->input('name')),
+                'image' => $imageName,
+                'gallery' => json_encode($galleryName),
+                'price' => $request->input('price'),
+                'sale_price' => $request->input('sale_price'),
+                'quantity' => $request->input('quantity'),
+                'descriptions' => $request->input('description'),
+                'categories' => json_encode($request->input('categories')),
+                'manufacturer' => $request->input('manufacturer'),
                 'created_at' => DB::raw('NOW()'),
                 'updated_at' => DB::raw('NOW()')
-            ]);
-        }
+            ];
 
-        return response()->json([
-            'status' => 'success',
-        ]);
-    } else {
-        return response()->json([
-            'status' => 'fail',
-            'message' => 'Product not found',
-        ]);
-    }
-}
-
-    public function destroy($id)
-    {
-        $products = DB::table('products')->where('id', $id)->delete();
-        return response()->json(
-            [
-                'status'                  => 'success',
-                'data'                    => $products,
-            ]
-        );
-    }
-
-    public function changeStatus(Request $request)
-    {
-        $product = DB::table('products')->where('id', $request->product_id)->first();
-
-        if ($product) {
-            $new_status = $product->status == 1 ? 0 : 1;
-            DB::table('products')->where('id', $request->product_id)->update(['status' => $new_status]);
+            DB::table('products')->where('id', $id)->update([$data]);
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Changed status successfully.'
             ]);
-        } else {
+        } catch (\Exception $e) {
+            // handle error here, and return error message to user, etc .
             return response()->json([
-                'status' => 'fail',
-                'message' => 'Product not found.'
+                'status' => 'error',
+                'message' => 'An error occurred during data saving.',
+                'error' => $e,
             ]);
         }
+    }
+
+    public function destroy($id)
+    {
+        $affectedRows = DB::table('products')->where('id', $id)->delete();
+
+        if ($affectedRows > 0) {
+            return response()->json(["message" => "success"]);
+        }
+
+        return response()->json(["message" => "not found"], 404);
     }
 }
