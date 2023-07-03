@@ -3,63 +3,17 @@
     $dark: #000000;
     $blue: #3982d3;
     $gray: #f3f4f6;
-    $gray-text: #4f5967 ;
-
-
-    body {
-        margin: 0;
-        padding: 0;
-        border: none;
-
-        img {
-            width: 100%;
-            height: 100%;
-        }
-
-        a {
-            color: $dark;
-            text-decoration: none;
-        }
-        
-
-        ul {
-            list-style-type: none;
-        }
-
-        .text-title {
-            font-size: 20px;
-            line-height: 22px;
-            font-weight: 500;
-        }
-
-        .color-blue {
-            color: $blue;
-        }
-
-    }
-
-    .dashed-line {
-        border-top: 1px dashed $dark;
-        margin: 0 30px;
-    }
+    $gray-text: #4f5967;
 
     .header {
-        display: flex;
-        position: fixed;
-        z-index: 3;
-        width: 100%;
-        justify-content: space-between;
-        padding: 10px 30px;
-        background-color: $white;
-        box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
 
         .main-logo {
+            margin-left: 100px;
             max-width: 25px;
             max-height: 25px;
         }
 
         .menu {
-            margin-right: 100px;
 
             ul {
                 li {
@@ -76,20 +30,54 @@
                     display: none;
                 }
 
-                .menu-icon {
-                    display: inline-block;
+                .mobile-menu {
+                    display: flex;
+                    flex-direction: column;
+                    max-width: 768px;
+
+                    .mobile-menu-icon {
+                        display: flex;
+                        justify-content: flex-end;
+                        align-items: center;
+                        position: relative;
+                        right: 100px;
+                    }
+
+                    .menu-title-list {
+                        .hide {
+                            display: none;
+                        }
+
+                        .show {
+                            display: flex;
+                            flex-direction: column;
+                            padding: 0;
+                            margin: 0;
+                            list-style: none;
+                            width: 100vw;
+                            height: 100vh;
+                            right: 100px;
+
+                            .menu-item {
+                                margin-top: 20px;
+                                display: flex;
+                                justify-content: flex-end;
+                                position: relative;
+                                right: 30px;
+
+                                &:hover {
+                                    background-color: #f3f4f6;
+                                }
+                            }
+                        }
+                    }
                 }
+
             }
         }
     }
 
     .container {
-        display: flex;
-        max-width: 1600px;
-        position: relative;
-        caret-color: transparent;
-        top: 70px;
-
         .sidebar {
             display: none;
         }
@@ -105,7 +93,7 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                width: 95%;
+                min-width: 600px;
                 height: 100px;
                 background-color: $white;
                 border: 1px;
@@ -119,14 +107,8 @@
                     align-items: center;
                     flex-grow: 1;
                     margin-left: 20px;
-                    width: 200px;
                 }
 
-                .search-btn {
-                    position: absolute;
-                    margin-left: 100px;
-
-                }
 
                 .search {
                     display: flex;
@@ -145,9 +127,11 @@
                 }
 
                 #outlined-select-currency-native {
-                    height: 20px;
-                    border: 1px solid $gray;
-                    border-radius: 5px;
+                    display: none;
+                }
+
+                .MuiFormControl-root.MuiTextField-root.css-1u3bzj6-MuiFormControl-root-MuiTextField-root {
+                    display: none;
                 }
 
 
@@ -156,11 +140,7 @@
                 }
 
                 .add-btn {
-                    display: flex;
-                    flex-grow: 1;
-                    margin-right: 20px;
-                    border: none;
-                    color: $blue;
+                    display: none;
 
                 }
             }
@@ -311,18 +291,18 @@
                                 margin-left: 0;
                                 margin-bottom: 30px;
 
-                                .active-form{
+                                .active-form {
                                     margin-left: 0;
                                     margin-right: 30px;
                                 }
 
-                                .will-expire{
+                                .will-expire {
                                     margin-left: 0;
                                 }
                             }
                         }
 
-                        .category-input-data {
+                        .input-data {
                             margin-top: 20px;
                             margin-bottom: 20px;
                             margin-right: 20px;

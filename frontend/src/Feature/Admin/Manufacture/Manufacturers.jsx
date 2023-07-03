@@ -1,49 +1,13 @@
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import * as React from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import { useState } from "react";
-import Pagination from "@mui/material/Pagination";
-import Stack from "@mui/material/Stack";
-import { Link } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
 import Box from "@mui/material/Box";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
-import MenuItem from "@mui/material/MenuItem";
-
-const currencies = [
-  {
-    value: "USD",
-    label: "$",
-  },
-  {
-    value: "EUR",
-    label: "€",
-  },
-  {
-    value: "BTC",
-    label: "฿",
-  },
-  {
-    value: "JPY",
-    label: "¥",
-  },
-];
-
-function createData(name, calories, fat, carbs, protein, detail, action) {
-  return { name, calories, fat, carbs, protein, detail, action };
-}
-
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0, 10, 20),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3, 10, 20),
-  createData("Eclair", 262, 16.0, 24, 6.0, 10, 20),
-];
+import * as React from "react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 
 function Manufacturer() {
   const [isClicked, setIsClicked] = useState(false);
@@ -59,7 +23,7 @@ function Manufacturer() {
   return (
     <>
       <div className="page-title">
-        <span className="title text-title">Manufacturers</span>
+        <span className="title font-heading">Manufacturers</span>
         {/* <SearchIcon className="search-btn"/> */}
 
         <input
@@ -70,69 +34,95 @@ function Manufacturer() {
           placeholder="Type your query and press enter"
         />
 
-        <Box
-          component="form"
-          sx={{
-            "& .MuiTextField-root": { m: 1, width: "25ch" },
-          }}
-          noValidate
-          autoComplete="off"
+        <Link
+          to="/admin/manufacturers/add-manufacturer"
+          className="add-btn font-btn add-btn-theme"
         >
-          <div>
-            <TextField
-              id="outlined-select-currency-native"
-              select
-              defaultValue="EUR"
-              SelectProps={{
-                native: true,
-              }}
-            >
-              {currencies.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </TextField>
-          </div>
-        </Box>
-
-        <Link to="/admin/manufacturers/add-manufacturer" className="add-btn text-title">
           <AddIcon />
           Add
         </Link>
       </div>
 
       <div className="data-table">
-        <TableContainer component={Paper} style={{ marginBottom: "10px" }}>
-          <Table sx={{ minWidth: 650 }} aria-label="caption table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Image</TableCell>
-                <TableCell align="center">Name</TableCell>
-                <TableCell align="center">Icon</TableCell>
-                <TableCell align="center">Image</TableCell>
-                <TableCell align="center">Slug</TableCell>
-                <TableCell align="center">Detail</TableCell>
-                <TableCell align="center">Action</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map((row) => (
-                <TableRow key={row.name}>
-                  <TableCell component="th" scope="row">
-                    {row.name}
-                  </TableCell>
-                  <TableCell align="center">{row.calories}</TableCell>
-                  <TableCell align="center">{row.fat}</TableCell>
-                  <TableCell align="center">{row.carbs}</TableCell>
-                  <TableCell align="center">{row.protein}</TableCell>
-                  <TableCell align="center">{row.detail}</TableCell>
-                  <TableCell align="center">{row.action}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <table className="table">
+          <thead>
+            <tr>
+              <th className="font-table-title">#</th>
+              <th className="font-table-title">Name</th>
+              <th className="font-table-title">Logo</th>
+              <th className="font-table-title">Description</th>
+              <th className="font-table-title">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className="text-font text-center">1</td>
+              <td className="text-font text-center">Mark</td>
+              <td className="text-font text-center">Otto</td>
+              <td className="text-font">
+                <span className="description-info block-text"> Website: lehaiha.com</span>
+                <span className="description-info block-text">Email: Lehaiha.com</span>
+                <span className="description-info block-text">Phone: 01677818205 </span>
+                <span className="description-info block-text">
+                  Address: Hai Chau, Da Nang{" "}
+                </span>
+                <span className="description-info block-text">Description: none </span>
+              </td>
+              <td className="text-font text-center action">
+                <div className="edit-btn">
+                  <EditOutlinedIcon />
+                </div>
+                <div className="delete-btn">
+                  <DeleteOutlineOutlinedIcon />
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td className="text-font text-center">2</td>
+              <td className="text-font text-center">Jacob</td>
+              <td className="text-font text-center">Thornton</td>
+              <td className="text-font">
+                <span className="description-info block-text"> Website: lehaiha.com</span>
+                <span className="description-info block-text">Email: Lehaiha.com</span>
+                <span className="description-info block-text">Phone: 01677818205 </span>
+                <span className="description-info block-text">
+                  Address: Hai Chau, Da Nang{" "}
+                </span>
+                <span className="description-info block-text">Description: none </span>
+              </td>
+              <td className="text-font text-center action">
+                <div className="edit-btn">
+                  <EditOutlinedIcon />
+                </div>
+                <div className="delete-btn">
+                  <DeleteOutlineOutlinedIcon />
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td className="text-font text-center">3</td>
+              <td className="text-font text-center">Larry the Bird</td>
+              <td className="text-font text-center">Otto</td>
+              <td className="text-font">
+                <span className="description-info block-text"> Website: lehaiha.com</span>
+                <span className="description-info block-text">Email: Lehaiha.com</span>
+                <span className="description-info block-text">Phone: 01677818205 </span>
+                <span className="description-info block-text">
+                  Address: Hai Chau, Da Nang{" "}
+                </span>
+                <span className="description-info block-text">Description: none </span>
+              </td>
+              <td className=" text-center action">
+                <div className="edit-btn text-font">
+                  <EditOutlinedIcon />
+                </div>
+                <div className="delete-btn text-font">
+                  <DeleteOutlineOutlinedIcon />
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
       <Stack spacing={2} className="pagination">
         <Pagination count={10} color="primary" />

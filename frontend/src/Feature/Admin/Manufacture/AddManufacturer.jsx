@@ -4,7 +4,7 @@ function AddManufacturer() {
 
   return (
     <>
-      <div className="add-title text-title">Create New Manufacturer</div>
+      <div className="add-title font-heading">Create New Manufacturer</div>
       <div className="dashed-line"></div>
 
      <AddManufacturerForm/>

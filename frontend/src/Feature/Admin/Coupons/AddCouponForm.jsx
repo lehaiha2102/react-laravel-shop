@@ -160,7 +160,7 @@ function AddCouponForm() {
         id="outlined-basic"
         label="Number of coupon codes"
         variant="outlined"
-        className="category-input-data"
+        className="input-data"
         name="code"
         type="number"
         defaultValue={0}
@@ -177,7 +177,7 @@ function AddCouponForm() {
             id={`code-${index}`}
             label="Code"
             variant="outlined"
-            className="category-input-data"
+            className="input-data"
             value={code}
             name={`code-${index}`}
             onChange={(event) => handleCodeChange(event, index)}
@@ -189,7 +189,7 @@ function AddCouponForm() {
           </Button>
         )}
             <TextareaAutosize
-              className="category-input-data"
+              className="input-data"
               placeholder="Description"
               name="description"
             />
@@ -223,13 +223,13 @@ function AddCouponForm() {
               id="outlined-basic"
               label="Minimum cart amount (USD)"
               variant="outlined"
-              className="category-input-data"
+              className="input-data"
               name="code"
               type="number"
               defaultValue={0}
             />
             <TextareaAutosize
-              className="category-input-data"
+              className="input-data"
               placeholder="Details"
               name="details"
             />
@@ -242,7 +242,7 @@ function AddCouponForm() {
                 <TextField
                   id="outlined-basic"
                   variant="outlined"
-                  className="category-input-data active-form"
+                  className="input-data active-form"
 
                   name="code"
                   type="date"
@@ -255,7 +255,7 @@ function AddCouponForm() {
                 <TextField
                   id="outlined-basic"
                   variant="outlined"
-                  className="category-input-data will-expire"
+                  className="input-data will-expire"
 
                   name="code"
                   type="date"

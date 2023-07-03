@@ -21,7 +21,7 @@ function AddProduct() {
 
   return (
     <>
-      <div className="add-title text-title">Create New Product</div>
+      <div className="add-title font-heading">Create New Product</div>
       <div className="dashed-line"></div>
 
       <AddProductForm onSubmit={handleSubmit}/>

@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import * as yup from "yup";
@@ -58,7 +58,7 @@ function SignupForm() {
     
 
   return (
-    <div className="container">
+    <div className="auth-container">
        <ToastContainer />
       <form  className="auth-form" onSubmit={handleSignUpSubmit}>
         <div className="cart">

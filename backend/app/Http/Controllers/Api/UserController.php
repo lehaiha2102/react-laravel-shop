@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
@@ -29,5 +30,46 @@ class UserController extends Controller
                 'error' => $e,
             ]);
         }
+    }
+
+    public function login(Request $request)
+    {
+        try {
+            $credentials = $request->only('email', 'password');
+
+            if (Auth::attempt($credentials)) {
+                // Authentication passed
+                $user = Auth::user();
+
+                // Generate a new API token
+                $token = $user->create('api_token')->plainTextToken;
+
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Login successful',
+                    'data' => [
+                        'user' => $user,
+                        'token' => $token,
+                    ],
+                ]);
+            } else {
+                // Authentication failed
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Invalid credentials',
+                ], 401);
+            }
+        } catch (\Exception $e) {
+            // Handle error here and return error message to user, etc...
+            return response()->json([
+                'status' => 'error',
+                'message' => 'An error occurred during login.',
+                'error' => $e,
+            ]);
+        }
+    }
+
+    public function forgot_password(Request $request, $email){
+        $users = DB::table('users')->get();
     }
 }

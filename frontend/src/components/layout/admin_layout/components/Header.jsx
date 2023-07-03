@@ -1,6 +1,5 @@
-import { Link } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { useState } from "react";
+import { Link } from "react-router-dom";
 import MobileMenu from "./MobileMenu";
 
 function Header() {

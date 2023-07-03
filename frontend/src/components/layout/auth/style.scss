@@ -4,10 +4,13 @@ body {
     background-color: #f3f4f6;
 }
 
-.container {
+.auth-container {
     display: flex;
     justify-content: center;
     align-items: center;
+    place-items: center;
+    position: relative;
+    top: 50px;
 
     form.auth-form {
         background-color: #ffffff;

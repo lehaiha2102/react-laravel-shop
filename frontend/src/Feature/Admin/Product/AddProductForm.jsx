@@ -1,44 +1,10 @@
-import { yupResolver } from "@hookform/resolvers/yup";
-import { TextareaAutosize } from "@mui/base";
-import {
-  Button,
-  FormControl,
-  FormControlLabel,
-  FormGroup,
-  FormLabel,
-  IconButton,
-  Radio,
-  RadioGroup,
-  TextField,
-} from "@mui/material";
-import Checkbox from "@mui/material/Checkbox";
-import MenuItem from "@mui/material/MenuItem";
-import PropTypes from "prop-types";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { IconButton } from "@mui/material";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import * as yup from "yup";
 import UploadImage from "../Assets/Images/upload_image.svg";
-import DeleteIcon from "@mui/icons-material/Delete";
-
-const currencies = [
-  {
-    value: "USD",
-    label: "$",
-  },
-  {
-    value: "EUR",
-    label: "€",
-  },
-  {
-    value: "BTC",
-    label: "฿",
-  },
-  {
-    value: "JPY",
-    label: "¥",
-  },
-];
 
 function AddProductForm() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -69,7 +35,7 @@ function AddProductForm() {
   };
 
   const handleGalleryUpload = (event) => {
-    const files = event.target.files;
+    const files = Array.from(event.target.files);
     const reader = new FileReader();
 
     const images = [];
@@ -105,20 +71,73 @@ function AddProductForm() {
     loadImages();
   };
 
+  const handleDeleteImage = (index) => {
+    const updatedGallery = [...selectedGallery];
+    updatedGallery.splice(index, 1);
+    setSelectedGallery(updatedGallery);
+  };
+
+  const schema = yup
+    .object({
+      name: yup
+        .string()
+        .required("Please enter category name")
+        .max(255, "Category name should not exceed 255 characters")
+        .matches(
+          /^[A-Za-z ]*$/,
+          "Category name should only contain letters and spaces"
+        ),
+      image: yup
+        .string()
+        .required("Please enter category image")
+        .matches(/\.(jpg|png)$/, "Category image must be in JPG or PNG format"),
+      galleryimage: yup
+        .string()
+        .required("Please enter category image")
+        .matches(/\.(jpg|png)$/, "Category image must be in JPG or PNG format"),
+      description: yup
+        .string()
+        .required("Please enter category description")
+        .min(100, "Category description is too short"),
+    })
+    .required();
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const formData = {
+      name: event.target.name.value,
+      image: event.target.image.value,
+      galleryimage: event.target.gallery - image.value,
+      description: event.target.description.value,
+    };
+
+    try {
+      await schema.validate(formData, { abortEarly: false });
+    } catch (error) {
+      if (error.inner) {
+        error.inner.forEach((validationError) => {
+          toast.error(validationError.message);
+        });
+      } else {
+        console.log("No validation errors");
+      }
+    }
+  };
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <div className="row image-upload">
         <div className="upload-title col-md-4">
-          <div className="title text-title">Featured Image</div>
-          <div className="description">
+          <div className="title  font-table-title">Featured Image</div>
+          <div className="description  text-font shawdow-text">
             Upload your product featured image here
           </div>
         </div>
         <div className="upload-input">
           <label htmlFor="image-upload-input">
             <img src={UploadImage} alt="upload image" className="upload-icon" />
-            <div className="descriptions">
-              <span className="color-blue upload-image-title">
+            <div className="descriptions text-font">
+              <span className="color-blue upload-image-title blue-text-font">
                 Upload an image{" "}
               </span>
               <span>or drag and drop</span>
@@ -130,7 +149,6 @@ function AddProductForm() {
             name="image"
             className="image-category"
             onChange={handleImageUpload}
-           
           />
           <div className="category-image-show">
             {selectedImage && <img src={selectedImage} alt="uploaded image" />}
@@ -142,16 +160,16 @@ function AddProductForm() {
 
       <div className="row image-upload">
         <div className="upload-title col-md-4">
-          <div className="title text-title">Gallery</div>
-          <div className="description">
+          <div className="title text-title font-table-title">Gallery</div>
+          <div className="description text-font shawdow-text">
             Upload your product image gallery here
           </div>
         </div>
         <div className="upload-input">
           <label htmlFor="gallery-image-upload-input">
             <img src={UploadImage} alt="upload image" className="upload-icon" />
-            <div className="descriptions">
-              <span className="color-blue upload-image-title">
+            <div className="descriptions  text-font">
+              <span className="color-blue upload-image-title blue-text-font">
                 Upload an image{" "}
               </span>
               <span>or drag and drop</span>
@@ -163,7 +181,7 @@ function AddProductForm() {
             name="gallery-image"
             className="image-category"
             onChange={handleGalleryUpload}
-           
+            multiple
           />
           <div className="category-image-show">
             {selectedGallery.map((image, index) => (
@@ -177,33 +195,22 @@ function AddProductForm() {
 
       <div className="row cate-info-upload">
         <div className="upload-title col-md-4">
-          <div className="title text-title">Categories & Manufacture</div>
-          <div className="description">
+          <div className="title text-title font-table-title">
+            Categories & Manufacture
+          </div>
+          <div className="description text-font shawdow-text">
             Select product categories and manufacture from here
           </div>
         </div>
         <div className="upload-input">
-          <TextField
-            className="category-input-data"
-            id="outlined-select-currency"
-            select
-            defaultValue={[]}
-            label="Category"
-            name="category"
-            multiple
-            value={selectedValues}
-            onChange={handleCategoryChange}
-            SelectProps={{
-              multiple: true,
-              renderValue: (selected) => selected.join(", "),
-            }}
-          >
-            {currencies.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
+          <select name="category" className="input-data" defaultValue="">
+            <option value="" disabled>
+              Select Category
+            </option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+          </select>
+
           <div className="value">
             <div className="selected-values">
               {selectedValues.map((value) => (
@@ -221,21 +228,9 @@ function AddProductForm() {
             </div>
           </div>
 
-          <TextField
-            className="category-input-data"
-            id="outlined-select-currency"
-            select
-            defaultValue=""
-            label="Manufacture"
-           
-            name="manufacture"
-          >
-            {currencies.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
+          <select name="manufacturer" id="" className="input-data">
+            <option value="">Select Manufacturer</option>
+          </select>
         </div>
       </div>
 
@@ -243,72 +238,56 @@ function AddProductForm() {
 
       <div className="row cate-info-upload">
         <div className="upload-title col-md-4">
-          <div className="title text-title">Description</div>
-          <div className="description">
+          <div className="title text-title font-table-title">Description</div>
+          <div className="description text-font shawdow-text">
             Add your product description and necessary information from here
           </div>
         </div>
         <div className="upload-input">
-          <TextField
+          <input
             id="outlined-basic"
-            label="Name"
+            placeholder="Name"
             variant="outlined"
-            className="category-input-data"
-           
+            className="input-data"
             name="name"
           />
-          <TextField
+          <input
             id="outlined-basic"
-            label="Price"
+            placeholder="Price"
             variant="outlined"
-            className="category-input-data"
-           
+            className="input-data"
             name="price"
             type="number"
           />
-          <TextField
+          <input
             id="outlined-basic"
-            label="Sale Price"
+            placeholder="Sale Price"
             variant="outlined"
-            className="category-input-data"
-           
+            className="input-data"
             name="sale_price"
             type="number"
           />
-          <TextField
+          <input
             id="outlined-basic"
-            label="Quantity"
+            placeholder="Quantity"
             variant="outlined"
-            className="category-input-data"
-           
+            className="input-data"
             name="quantity"
             type="number"
           />
-          <TextareaAutosize
-            className="category-input-data"
-            placeholder="Details"
-            name="details"
-           
-          />
-          <FormControl className="status">
-            <FormLabel id="demo-radio-buttons-group-label">Status</FormLabel>
-            <RadioGroup
-              aria-labelledby="demo-radio-buttons-group-label"
-              defaultValue="Published"
-              name="radio-buttons-group"
-            >
-              <FormControlLabel
-                value="Published"
-                control={<Radio />}
-                label="Published"
-              />
-              <FormControlLabel
-                value="Draft"
-                control={<Radio />}
-                label="Draft"
-              />
-            </RadioGroup>
-          </FormControl>
+          <textarea
+            name="description"
+            id=""
+            cols="30"
+            rows="10"
+            defaultValue="Description"
+            className="input-data"
+          ></textarea>
+          <label htmlFor="status">
+            <input type="radio" name="status" id="" /> Published
+            <input type="radio" name="status" id="" />
+            Draft
+          </label>
         </div>
       </div>
 
@@ -316,31 +295,31 @@ function AddProductForm() {
 
       <div className="row cate-info-upload">
         <div className="upload-title col-md-4">
-          <div className="title text-title">Attributes</div>
-          <div className="description">
+          <div className="title text-title font-table-title">Attributes</div>
+          <div className="description text-font shawdow-text">
             Select your product's attributes from here
           </div>
         </div>
         <div className="upload-input">
-          <FormGroup className="attribute">
-            <label className="title">Color: </label>
-            <FormControlLabel control={<Checkbox />} label="Blue" />
-            <FormControlLabel control={<Checkbox />} label="Red" />
-          </FormGroup>
+          <label>
+            <input type="checkbox" name="color" value="apple" /> Apple
+          </label>
+          <label>
+            <input type="checkbox" name="color" value="banana" /> Banana
+          </label>
+          <label>
+            <input type="checkbox" name="color" value="orange" /> Orange
+          </label>
         </div>
       </div>
 
       <div className="submit-btn">
-        <Link to="/admin/products" className="back-btn">
+        <Link to="/admin/products" className="btn-white">
           Back
         </Link>
-
-        <Button
-          className="product-submit"
-          type="submit"
-        >
-          Add Product
-        </Button>
+        <button className="btn-blue" type="submit">
+          Add Manufacturer
+        </button>
       </div>
     </form>
   );

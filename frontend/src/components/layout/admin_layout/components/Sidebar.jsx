@@ -13,58 +13,64 @@ function Sidebar() {
   return (
     <aside className="sidebar">
       <ul className="menu">
-        <li className="menu-item color-gray">
+        <li className="menu-item mt-20">
           <Link to="1">
-            <HomeIcon className="menu-icon" />
-            <span className="menu-title text-title">Home</span>
+            <HomeIcon className="menu-icon font-title" />
+            <span className="menu-title font-title">Home</span>
           </Link>
         </li>
-        <li className="menu-item color-gray">
+        <li className="menu-item mt-20">
           <Link to="/admin/products">
-            <LocalGroceryStoreIcon className="menu-icon" />
-            <span className="menu-title text-title">Products</span>
+            <LocalGroceryStoreIcon className="menu-icon font-title" />
+            <span className="menu-title font-title">Products</span>
           </Link>
         </li>
-        <li className="menu-item color-gray">
-          <Link to="/admin/attributes">
-            <SettingsEthernetIcon className="menu-icon" />
-            <span className="menu-title text-title">Attributes</span>
-          </Link>
-        </li>
-        <li className="menu-item color-gray">
+        <li className="menu-item mt-20">
           <Link to="/admin/categories">
-            <CategoryIcon className="menu-icon" />
-            <span className="menu-title text-title">Categories</span>
+            <CategoryIcon className="menu-icon font-title" />
+            <span className="menu-title font-title">Categories</span>
           </Link>
         </li>
-        <li className="menu-item color-gray">
+        <li className="menu-item mt-20">
+          <Link to="/admin/groups">
+            <CardGiftcardIcon className="menu-icon font-title" />
+            <span className="menu-title font-title">Groups</span>
+          </Link>
+        </li>
+        <li className="menu-item mt-20">
           <Link to="/admin/manufacturers">
-            <WarehouseIcon className="menu-icon" />
-            <span className="menu-title text-title">Manuafacturers</span>
+            <WarehouseIcon className="menu-icon font-title" />
+            <span className="menu-title font-title">Manuafacturers</span>
           </Link>
         </li>
-        <li className="menu-item color-gray">
+        <li className="menu-item mt-20">
           <Link to="/admin/coupons">
-            <CardGiftcardIcon className="menu-icon" />
-            <span className="menu-title text-title">Coupons</span>
+            <CardGiftcardIcon className="menu-icon font-title" />
+            <span className="menu-title font-title">Coupons</span>
           </Link>
         </li>
-        <li className="menu-item color-gray">
+        <li className="menu-item mt-20">
+          <Link to="/admin/attributes">
+            <SettingsEthernetIcon className="menu-icon font-title" />
+            <span className="menu-title font-title">Attributes</span>
+          </Link>
+        </li>
+        <li className="menu-item mt-20">
           <Link to="7">
-            <GroupIcon className="menu-icon" />
-            <span className="menu-title text-title">Customers</span>
+            <GroupIcon className="menu-icon font-title" />
+            <span className="menu-title font-title">Customers</span>
           </Link>
         </li>
-        <li className="menu-item color-gray">
+        <li className="menu-item mt-20">
           <Link to="8">
-            <ThumbUpIcon className="menu-icon" />
-            <span className="menu-title text-title">Review</span>
+            <ThumbUpIcon className="menu-icon font-title" />
+            <span className="menu-title font-title">Review</span>
           </Link>
         </li>
-        <li className="menu-item color-gray">
+        <li className="menu-item mt-20">
           <Link to="9">
-            <ShoppingBasketIcon className="menu-icon" />
-            <span className="menu-title text-title">Orders</span>
+            <ShoppingBasketIcon className="menu-icon font-title" />
+            <span className="menu-title font-title">Orders</span>
           </Link>
         </li>
       </ul>

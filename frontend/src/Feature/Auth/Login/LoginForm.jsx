@@ -43,7 +43,7 @@ function LoginForm() {
       }
     };
   return (
-    <div className="container">
+    <div className="auth-container">
       <ToastContainer />
       <form className="auth-form" onSubmit={handleLoginSubmit}>
         <div className="cart">

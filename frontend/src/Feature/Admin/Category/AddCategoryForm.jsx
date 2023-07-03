@@ -1,19 +1,10 @@
-import { yupResolver } from "@hookform/resolvers/yup";
-import { TextareaAutosize } from "@mui/base";
 import { Button } from "@mui/material";
-import MenuItem from "@mui/material/MenuItem";
-import PropTypes from "prop-types";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import * as yup from "yup";
 import UploadImage from "../Assets/Images/upload_image.svg";
-import MyInputField from "../../../components/Fields/TextField";
-
-AddCategoryForm.propTypes = {
-  onSubmit: PropTypes.func,
-};
+import { toast } from 'react-toastify';
 
 function AddCategoryForm() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -32,45 +23,49 @@ function AddCategoryForm() {
   };
 
   const schema = yup
-    .object({
-      name: yup
-        .string()
-        .required("Please enter category name"),
-      image: yup
-        .string()
-        .required("Please enter category image"),
-        icon: yup
-        .string()
-        .required("Please enter category image"),
+  .object({
+    name: yup
+      .string()
+      .required("Please enter category name")
+      .max(255, "Category name should not exceed 255 characters")
+      .matches(/^[A-Za-z ]*$/, "Category name should only contain letters and spaces"),
+    image: yup
+      .string()
+      .required("Please enter category image")
+      .matches(/\.(jpg|png)$/, "Category image must be in JPG or PNG format"),
+    icon: yup.string().required("Please enter category icon"),
     description: yup
-    .string()
-    .required("Please enter category description")
-    .min(255, "Category description so short")
-    })
-    .required();
+      .string()
+      .required("Please enter category description")
+      .min(100, "Category description is too short"),
+  })
+  .required();
 
-  const form = useForm({
-    defaultValues: {
-      name: "",
-      image: "",
-      icon: "",
-      description: "",
-      category_parent: "",
-    },
-    resolver: yupResolver(schema),
-  });
 
-  const handleSubmit = async (values) => {
-    const { onSubmit } = props;
-    if (onSubmit) {
-      await onSubmit(values);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const formData = {
+      name: event.target.name.value,
+      image: event.target.image.value,
+      icon: event.target.icon.value,
+      description: event.target.description.value,
+    };
+  
+    try {
+      await schema.validate(formData, { abortEarly: false });
+    } catch (error) {
+      if (error.inner) {
+        error.inner.forEach((validationError) => {
+          toast.error(validationError.message);
+        });
+      } else {
+        console.log('No validation errors');
+      }
     }
   };
 
-  const { isSubmitting } = form.formState;
-
   return (
-    <form onSubmit={form.handleSubmit(handleSubmit)}>
+    <form onSubmit={handleSubmit}>
       <div className="row image-upload">
         <div className="upload-title col-md-4">
           <div className="title text-title">Image</div>
@@ -90,9 +85,8 @@ function AddCategoryForm() {
             type="file"
             id="image-upload-input"
             name="image"
-            className="category-input-data image-category"
+            className="input-data image-category"
             onChange={handleImageUpload}
-            form={form}
           />
           <div className="category-image-show">
             {selectedImage && <img src={selectedImage} alt="uploaded image" />}
@@ -109,42 +103,20 @@ function AddCategoryForm() {
           </div>
         </div>
         <div className="upload-input">
-          <MyInputField
+          <input
             id="outlined-basic"
-            label="Name"
+            placeholder="Name"
             variant="outlined"
-            className="category-input-data"
+            className="input-data"
             name="name"
-            form={form}
           />
-          <MyInputField
-            className="category-input-data"
-            id="outlined-select-currency"
-            select
-            defaultValue="EUR"
-            label="Select Icon"
-            name="icon"
-            form={form}
-          >
-            <MenuItem defaultValue="--Select--"></MenuItem>
-          </MyInputField>
-          <MyInputField
-            className="category-input-data"
-            id="outlined-select-currency"
-            select
-            defaultValue="EUR"
-            label="Parent Category"
-            name="parent_category"
-            form={form}
-          >
-            <MenuItem defaultValue="--Select--"></MenuItem>
-          </MyInputField>
-          <TextareaAutosize
-            className="category-input-data"
-            placeholder="Details"
-            name="details"
-            form={form}
-          />
+          <select name="icon" id=""  className="input-data">
+            <option value="">Select Icon</option>
+          </select>
+          <select name="parent_category" id=""  className="input-data">
+            <option value="">Select Parent Category</option>
+          </select>
+          <textarea name="description" id="" cols="30" rows="10" defaultValue="Description"  className="input-data"></textarea>
         </div>
       </div>
 
@@ -152,7 +124,7 @@ function AddCategoryForm() {
         <Link to="/admin/categories" className="back-btn">
           Back
         </Link>
-        <Button className="category-submit" type="submit"  disabled={isSubmitting}>
+        <Button className="category-submit" type="submit">
           Add Category
         </Button>
       </div>
