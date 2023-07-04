@@ -216,7 +216,7 @@ function AddManufacturerForm() {
             className="image-category"
             onChange={handleImageUpload}
           />
-          <div className="category-image-show">
+          <div className="images-show">
             {selectedImage && <img src={selectedImage} alt="uploaded image" />}
           </div>
         </div>
@@ -226,7 +226,7 @@ function AddManufacturerForm() {
 
       <div className="row image-upload">
         <div className="upload-title col-md-4">
-          <div className="title  font-table-title">Cover Image</div>
+          <div className="title font-table-title">Cover Image</div>
           <div className="description text-font shawdow-text">
             Upload your Manufacturer/Publication cover image from here,
             Dimension should be 960 x 340 px.
@@ -249,7 +249,7 @@ function AddManufacturerForm() {
             className="image-category"
             onChange={handleGalleryUpload}
           />
-          <div className="category-image-show">
+          <div className="images-show">
             {selectedGallery.map((image, index) => (
               <img key={index} src={image} alt={`uploaded image ${index}`} />
             ))}

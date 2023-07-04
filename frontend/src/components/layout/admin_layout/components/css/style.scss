@@ -33,7 +33,7 @@
                    margin-right: 0;
                }
 
-                .mobile-menu {
+               .mobile-menu {
                    display: none;
                }
 
@@ -168,20 +168,33 @@
                    th,
                    td {
                        padding: 8px;
-                       border: 1px solid #ccc;
+                       border-top: 1px solid #ccc;
+                       border-bottom: 1px solid #ccc;
                    }
 
                    .action {
 
                        .edit-btn {
+                           color: $font-title-color;
+
                            &:hover {
                                color: $warning;
                            }
                        }
 
                        .delete-btn {
+                           color: $font-title-color;
+
                            &:hover {
                                color: $danger;
+                           }
+                       }
+
+                       .detail-btn {
+                           color: $font-title-color;
+
+                           &:hover {
+                               color: $blue;
                            }
                        }
                    }
@@ -192,6 +205,160 @@
 
                    tbody tr:nth-child(even) {
                        background-color: $white;
+                   }
+               }
+
+               .title {
+                   display: flex;
+                   justify-content: space-between;
+                   background-color: $gray;
+                   height: 60px;
+
+                   .title-content {
+                       margin: 0 30px;
+
+                       span {
+                           display: flex;
+                           align-items: center;
+
+                           p {
+                               margin-left: 30px;
+                               padding: 5px 30px 5px 30px;
+                           }
+                       }
+                   }
+
+               }
+
+               .order-content {
+                   background-color: $white;
+                   margin: 30px 30px 50px 30px;
+                   width: calc(100% - 50px);
+
+                   .ribbon {
+                       display: flex;
+                       justify-content: space-between;
+                       align-items: center;
+                       margin-bottom: 50px;
+
+                       .order-id {
+                           flex-grow: 2;
+
+                           span {
+                               display: flex;
+                               align-items: center;
+                           }
+                       }
+
+                       .order-status-change {
+                           flex-grow: 1;
+                           display: flex;
+
+                           .order-status-select {
+                               width: 250px;
+                               margin-right: 30px;
+                               border: 1px solid $blue;
+                               flex-grow: 1;
+                           }
+
+                           .change-status-btn {
+                               flex-grow: 1;
+                           }
+                       }
+                   }
+
+                   .order-status {
+                       display: flex;
+                       margin: 50px 30px;
+
+                       .order-status-step {
+                           flex-grow: 1;
+
+                           .order-status-icon {
+                               display: flex;
+                               flex-direction: column;
+                               align-items: center;
+                               justify-content: center;
+
+                               .icon {
+                                   display: flex;
+                                   place-content: center;
+                                   place-items: center;
+                                   width: 50px;
+                                   height: 50px;
+                                   position: absolute;
+                                   color: $blue;
+                               }
+
+                               span {
+                                   color: $blue;
+                                   display: flex;
+                                   place-content: center;
+                                   place-items: center;
+                                   width: 50px;
+                                   height: 50px;
+                                   border: 1px dashed $blue;
+                                   border-radius: 50%;
+                               }
+                           }
+
+                           .status-step-name {
+                               display: flex;
+                               place-content: center;
+                               place-items: center;
+                               color: $blue;
+                           }
+                       }
+                   }
+
+                   .total-detail {
+                       width: 250px;
+                       display: flex;
+                       flex-direction: column;
+                       position: relative;
+                       margin-left: 600px;
+
+                       .detail-info {
+                           display: flex;
+                           justify-content: space-between;
+                           margin-top: 10px;
+                           margin-bottom: 10px;
+                       }
+                   }
+
+                   .delivery-info {
+                       display: flex;
+                       flex-direction: column;
+
+                       .delivery-info-title {
+                           display: flex;
+                           justify-content: space-between;
+                           border-bottom: 1px solid $gray;
+                           padding-bottom: 10px;
+                       }
+
+                       .delivery-info-content {
+                           margin-top: 30px;
+                           display: flex;
+                           justify-content: space-between;
+                           padding-bottom: 30px;
+
+                           .billing-address-content {
+                               flex-grow: 1;
+                               display: flex;
+                               flex-direction: column;
+                               justify-content: flex-start;
+                               margin-right: 50px;
+                           }
+
+                           .shipping-address-content {
+                               flex-grow: 1;
+                               display: flex;
+                               flex-direction: column;
+                               justify-content: flex-end;
+                               direction: rtl;
+                           }
+                       }
                    }
                }
            }
@@ -279,9 +446,10 @@
                            position: relative;
                            bottom: 50px;
                            display: flex;
+
                            img {
-                            flex-grow: 1;
-                            margin: 10px
+                               flex-grow: 1;
+                               margin: 10px
                            }
                        }
                    }
@@ -422,6 +590,96 @@
                    justify-content: flex-end;
                    margin-right: 30px;
                }
+           }
+
+           .sales-metrics {
+               display: flex;
+               justify-content: center;
+               align-items: center;
+               width: calc(100% - 25px);
+               height: 100px;
+               margin-top: 100px;
+               margin-bottom: 100px;
+
+               .sales-metric {
+                   display: flex;
+                   justify-content: space-between;
+                   padding-left: 10px;
+                   padding-right: 10px;
+                   width: 50%;
+                   height: 200px;
+                   background-color: $white;
+                   border: 1px;
+                   border-radius: 5px;
+                   margin: 50px 10px 50px 30px;
+                   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+
+                   .metric-text {
+                       .metric-title {
+                           margin: 10px;
+                       }
+
+                       .metric-note {
+                           margin-left: 10px;
+                           margin-bottom: 100px;
+                       }
+
+                       .metric-price {
+                           margin-left: 10px;
+                       }
+                   }
+
+                   .metric-icon {
+                       margin-top: 10px;
+                       margin-right: 10px;
+                       padding: 10px;
+
+                       .dashboard-icon {
+                           width: 50px;
+                           height: 50px;
+                       }
+                   }
+
+                   .price-icon {
+                    width: 50px;
+                    height: 50px;
+                       color: $warning;
+                       background-color: #f4e493;
+                       border-radius: 50%;
+                   }
+
+                   .cart-icon {
+                    width: 50px;
+                    height: 50px;
+                    background-color: #bbe0fc;
+                    border-radius: 50%;
+                       color: $blue;
+                   }
+
+                   .today-price-icon {
+                    width: 50px;
+                    height: 50px;
+                    background-color: #fcbdbb;
+                    border-radius: 50%;
+                       color: $danger;
+                   }
+
+                   .customers-icon {
+                    width: 50px;
+                    height: 50px;
+                    background-color: #bbfcda;
+                    border-radius: 50%;
+                       color: $green;
+                   }
+               }
+           }
+
+           .history-sale-chart {
+            margin-left: 30px;
+            margin-right: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+            margin-bottom: 100px;
            }
        }
    }

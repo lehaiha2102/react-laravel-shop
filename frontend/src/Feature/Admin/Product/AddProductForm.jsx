@@ -38,7 +38,7 @@ function AddProductForm() {
     const files = Array.from(event.target.files);
     const reader = new FileReader();
 
-    const images = [];
+    const images = [...selectedGallery];
 
     const loadImage = (file) => {
       return new Promise((resolve, reject) => {
@@ -56,6 +56,14 @@ function AddProductForm() {
     };
 
     const loadImages = async () => {
+      const maxImages = 6; 
+      const remainingSlots = maxImages - images.length;
+  
+      if (files.length > remainingSlots) {
+        toast.info(`The number of photos in the gallery exceeds the allowed number (6 photos)`);
+        return;
+      }
+  
       for (const file of files) {
         try {
           const image = await loadImage(file);
@@ -64,7 +72,7 @@ function AddProductForm() {
           console.error("Error loading image:", error);
         }
       }
-
+  
       setSelectedGallery(images);
     };
 
@@ -81,24 +89,24 @@ function AddProductForm() {
     .object({
       name: yup
         .string()
-        .required("Please enter category name")
-        .max(255, "Category name should not exceed 255 characters")
+        .required("Please enter product name")
+        .max(255, "Product name should not exceed 255 characters")
         .matches(
           /^[A-Za-z ]*$/,
-          "Category name should only contain letters and spaces"
+          "Product name should only contain letters and spaces"
         ),
       image: yup
         .string()
-        .required("Please enter category image")
-        .matches(/\.(jpg|png)$/, "Category image must be in JPG or PNG format"),
+        .required("Please enter product image")
+        .matches(/\.(jpg|png)$/, "Product image must be in JPG or PNG format"),
       galleryimage: yup
         .string()
-        .required("Please enter category image")
-        .matches(/\.(jpg|png)$/, "Category image must be in JPG or PNG format"),
+        .required("Please enter Product image")
+        .matches(/\.(jpg|png)$/, "Product image must be in JPG or PNG format"),
       description: yup
         .string()
-        .required("Please enter category description")
-        .min(100, "Category description is too short"),
+        .required("Please enter product description")
+        .min(100, "Product description is too short"),
     })
     .required();
 
@@ -107,7 +115,7 @@ function AddProductForm() {
     const formData = {
       name: event.target.name.value,
       image: event.target.image.value,
-      galleryimage: event.target.gallery - image.value,
+      galleryimage: event.target.galleryImage.value,
       description: event.target.description.value,
     };
 
@@ -126,10 +134,10 @@ function AddProductForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="row image-upload">
-        <div className="upload-title col-md-4">
-          <div className="title  font-table-title">Featured Image</div>
-          <div className="description  text-font shawdow-text">
+      <div className="image-upload">
+        <div className="upload-title">
+          <div className="title font-table-title">Featured Image</div>
+          <div className="description text-font shawdow-text">
             Upload your product featured image here
           </div>
         </div>
@@ -150,7 +158,7 @@ function AddProductForm() {
             className="image-category"
             onChange={handleImageUpload}
           />
-          <div className="category-image-show">
+          <div className="images-show feature-logo">
             {selectedImage && <img src={selectedImage} alt="uploaded image" />}
           </div>
         </div>
@@ -160,7 +168,7 @@ function AddProductForm() {
 
       <div className="row image-upload">
         <div className="upload-title col-md-4">
-          <div className="title text-title font-table-title">Gallery</div>
+          <div className="title font-heading font-table-title">Gallery</div>
           <div className="description text-font shawdow-text">
             Upload your product image gallery here
           </div>
@@ -178,12 +186,12 @@ function AddProductForm() {
           <input
             type="file"
             id="gallery-image-upload-input"
-            name="gallery-image"
+            name="galleryImage"
             className="image-category"
             onChange={handleGalleryUpload}
             multiple
           />
-          <div className="category-image-show">
+          <div className="images-show ">
             {selectedGallery.map((image, index) => (
               <img key={index} src={image} alt={`uploaded image ${index}`} />
             ))}
@@ -195,7 +203,7 @@ function AddProductForm() {
 
       <div className="row cate-info-upload">
         <div className="upload-title col-md-4">
-          <div className="title text-title font-table-title">
+          <div className="title font-heading font-table-title">
             Categories & Manufacture
           </div>
           <div className="description text-font shawdow-text">
@@ -238,7 +246,7 @@ function AddProductForm() {
 
       <div className="row cate-info-upload">
         <div className="upload-title col-md-4">
-          <div className="title text-title font-table-title">Description</div>
+          <div className="title font-heading font-table-title">Description</div>
           <div className="description text-font shawdow-text">
             Add your product description and necessary information from here
           </div>
@@ -295,7 +303,7 @@ function AddProductForm() {
 
       <div className="row cate-info-upload">
         <div className="upload-title col-md-4">
-          <div className="title text-title font-table-title">Attributes</div>
+          <div className="title font-heading font-table-title">Attributes</div>
           <div className="description text-font shawdow-text">
             Select your product's attributes from here
           </div>
@@ -318,7 +326,7 @@ function AddProductForm() {
           Back
         </Link>
         <button className="btn-blue" type="submit">
-          Add Manufacturer
+          Add product
         </button>
       </div>
     </form>

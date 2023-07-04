@@ -14,7 +14,7 @@ function Sidebar() {
     <aside className="sidebar">
       <ul className="menu">
         <li className="menu-item mt-20">
-          <Link to="1">
+          <Link to="/admin/">
             <HomeIcon className="menu-icon font-title" />
             <span className="menu-title font-title">Home</span>
           </Link>
@@ -56,7 +56,7 @@ function Sidebar() {
           </Link>
         </li>
         <li className="menu-item mt-20">
-          <Link to="7">
+          <Link to="/admin/customers">
             <GroupIcon className="menu-icon font-title" />
             <span className="menu-title font-title">Customers</span>
           </Link>
@@ -68,7 +68,7 @@ function Sidebar() {
           </Link>
         </li>
         <li className="menu-item mt-20">
-          <Link to="9">
+          <Link to="/admin/orders">
             <ShoppingBasketIcon className="menu-icon font-title" />
             <span className="menu-title font-title">Orders</span>
           </Link>

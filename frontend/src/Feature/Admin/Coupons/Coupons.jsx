@@ -1,20 +1,13 @@
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import * as React from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import { useState } from "react";
+import AddIcon from "@mui/icons-material/Add";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import Box from "@mui/material/Box";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import { Link } from "react-router-dom";
-import AddIcon from "@mui/icons-material/Add";
-import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import MenuItem from "@mui/material/MenuItem";
+import * as React from "react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const currencies = [
   {
@@ -59,7 +52,7 @@ function Coupons() {
   return (
     <>
       <div className="page-title">
-        <span className="title text-title">Couponts</span>
+        <span className="title font-heading">Coupons</span>
         {/* <SearchIcon className="search-btn"/> */}
 
         <input
@@ -96,43 +89,156 @@ function Coupons() {
           </div>
         </Box>
 
-        <Link to="/admin/coupons/add-coupon" className="add-btn text-title">
+        <Link to="/admin/coupons/add-coupon" className="add-btn font-btn add-btn-theme">
           <AddIcon />
           Add
         </Link>
       </div>
 
       <div className="data-table">
-        <TableContainer component={Paper} style={{ marginBottom: "10px" }}>
-          <Table sx={{ minWidth: 650 }} aria-label="caption table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Image</TableCell>
-                <TableCell align="center">Name</TableCell>
-                <TableCell align="center">Icon</TableCell>
-                <TableCell align="center">Image</TableCell>
-                <TableCell align="center">Slug</TableCell>
-                <TableCell align="center">Detail</TableCell>
-                <TableCell align="center">Action</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map((row) => (
-                <TableRow key={row.name}>
-                  <TableCell component="th" scope="row">
-                    {row.name}
-                  </TableCell>
-                  <TableCell align="center">{row.calories}</TableCell>
-                  <TableCell align="center">{row.fat}</TableCell>
-                  <TableCell align="center">{row.carbs}</TableCell>
-                  <TableCell align="center">{row.protein}</TableCell>
-                  <TableCell align="center">{row.detail}</TableCell>
-                  <TableCell align="center">{row.action}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+      <table className="table">
+          <thead>
+            <tr>
+              <th className="font-table-title">#</th>
+              <th className="font-table-title">Image</th>
+              <th className="font-table-title">Quantity Code</th>
+              <th className="font-table-title">Type</th>
+              <th className="font-table-title">Active Day</th>
+              <th className="font-table-title">Will Expire</th>
+              <th className="font-table-title">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className="text-font text-center">1</td>
+              <td className="text-font text-center">Otto</td>
+              <td className="text-font text-center">Mark</td>
+              <td className="text-font text-center">Otto</td>
+              <td className="text-font">
+                <span className="description-info block-text"> Website: lehaiha.com</span>
+                <span className="description-info block-text">Email: Lehaiha.com</span>
+                <span className="description-info block-text">Phone: 01677818205 </span>
+                <span className="description-info block-text">
+                  Address: Hai Chau, Da Nang{" "}
+                </span>
+                <span className="description-info block-text">Description: none </span>
+              </td>
+               <td className="text-font">
+                <span className="description-info block-text"> Website: lehaiha.com</span>
+                <span className="description-info block-text">Email: Lehaiha.com</span>
+                <span className="description-info block-text">Phone: 01677818205 </span>
+                <span className="description-info block-text">
+                  Address: Hai Chau, Da Nang{" "}
+                </span>
+                <span className="description-info block-text">Description: none </span>
+              </td>
+              <td className="text-font text-center action">
+                <div className="edit-btn">
+                  <EditOutlinedIcon />
+                </div>
+                <div className="delete-btn">
+                  <DeleteOutlineOutlinedIcon />
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td className="text-font text-center">2</td>
+              <td className="text-font text-center">Thornton</td>
+              <td className="text-font text-center">Mark</td>
+              <td className="text-font text-center">Otto</td>
+              <td className="text-font">
+                <span className="description-info block-text"> Website: lehaiha.com</span>
+                <span className="description-info block-text">Email: Lehaiha.com</span>
+                <span className="description-info block-text">Phone: 01677818205 </span>
+                <span className="description-info block-text">
+                  Address: Hai Chau, Da Nang{" "}
+                </span>
+                <span className="description-info block-text">Description: none </span>
+              </td>
+               <td className="text-font">
+                <span className="description-info block-text"> Website: lehaiha.com</span>
+                <span className="description-info block-text">Email: Lehaiha.com</span>
+                <span className="description-info block-text">Phone: 01677818205 </span>
+                <span className="description-info block-text">
+                  Address: Hai Chau, Da Nang{" "}
+                </span>
+                <span className="description-info block-text">Description: none </span>
+              </td>
+              <td className="text-font text-center action">
+                <div className="edit-btn">
+                  <EditOutlinedIcon />
+                </div>
+                <div className="delete-btn">
+                  <DeleteOutlineOutlinedIcon />
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td className="text-font text-center">3</td>
+              <td className="text-font text-center">Otto</td>
+              <td className="text-font text-center">Mark</td>
+              <td className="text-font text-center">Otto</td>
+              <td className="text-font">
+                <span className="description-info block-text"> Website: lehaiha.com</span>
+                <span className="description-info block-text">Email: Lehaiha.com</span>
+                <span className="description-info block-text">Phone: 01677818205 </span>
+                <span className="description-info block-text">
+                  Address: Hai Chau, Da Nang{" "}
+                </span>
+                <span className="description-info block-text">Description: none </span>
+              </td>
+               <td className="text-font">
+                <span className="description-info block-text"> Website: lehaiha.com</span>
+                <span className="description-info block-text">Email: Lehaiha.com</span>
+                <span className="description-info block-text">Phone: 01677818205 </span>
+                <span className="description-info block-text">
+                  Address: Hai Chau, Da Nang{" "}
+                </span>
+                <span className="description-info block-text">Description: none </span>
+              </td>
+              <td className=" text-center action">
+                <div className="edit-btn text-font">
+                  <EditOutlinedIcon />
+                </div>
+                <div className="delete-btn text-font">
+                  <DeleteOutlineOutlinedIcon />
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td className="text-font text-center">4</td>
+              <td className="text-font text-center">Otto</td>
+              <td className="text-font text-center">Mark</td>
+              <td className="text-font text-center">Otto</td>
+              <td className="text-font">
+                <span className="description-info block-text"> Website: lehaiha.com</span>
+                <span className="description-info block-text">Email: Lehaiha.com</span>
+                <span className="description-info block-text">Phone: 01677818205 </span>
+                <span className="description-info block-text">
+                  Address: Hai Chau, Da Nang{" "}
+                </span>
+                <span className="description-info block-text">Description: none </span>
+              </td>
+               <td className="text-font">
+                <span className="description-info block-text"> Website: lehaiha.com</span>
+                <span className="description-info block-text">Email: Lehaiha.com</span>
+                <span className="description-info block-text">Phone: 01677818205 </span>
+                <span className="description-info block-text">
+                  Address: Hai Chau, Da Nang{" "}
+                </span>
+                <span className="description-info block-text">Description: none </span>
+              </td>
+              <td className=" text-center action">
+                <div className="edit-btn text-font">
+                  <EditOutlinedIcon />
+                </div>
+                <div className="delete-btn text-font">
+                  <DeleteOutlineOutlinedIcon />
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
       <Stack spacing={2} className="pagination">
         <Pagination count={10} color="primary" />

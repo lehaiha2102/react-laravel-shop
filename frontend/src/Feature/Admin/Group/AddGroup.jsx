@@ -22,7 +22,7 @@ function AddGroup() {
 
   return (
     <>
-      <div className="add-title text-title">Create New Groups</div>
+      <div className="add-title font-heading">Create New Groups</div>
       <div className="dashed-line"></div>
 
       <AddGroupForm onSubmit={handleSubmit}/>

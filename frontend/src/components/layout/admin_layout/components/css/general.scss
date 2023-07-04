@@ -10,6 +10,8 @@ $gray: #f3f4f6;
 $font-title-color: rgb(75, 85, 99);
 $warning: #fdb900;
 $danger: #f60000;
+$green:
+#009f7f ;
 
 .btn-theme-1 {
     background-color: $blue;
@@ -61,6 +63,11 @@ $danger: #f60000;
     line-height: 20px;
     white-space: pre-line;
 }
+.text-note {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+}
 .blue-text-font {
     color: $blue;
 }
@@ -93,12 +100,22 @@ a.button-theme2 {
     text-decoration: none;
 }
 
+a.detail-btn {
+    color: $font-title-color;
+    &:hover {
+        color: $blue;
+    }
+}
 .shawdow-text {
     color: rgb(107, 114, 128);
 }
-
+.single-line-text {
+    white-space: nowrap;
+  }
 .btn-blue {
-    width: 200px;
+    width: 250px;
+    padding-left: 15px;
+    padding-right: 15px;
     height: 50px;
     display: flex;
     align-items: center;
@@ -115,6 +132,9 @@ a.button-theme2 {
     }
 }
 
+.dark {
+    color: $dark;
+}
 .btn-white {
     background-color: $gray;
     color: $dark;
@@ -135,6 +155,36 @@ a.button-theme2 {
         color: $white ;
     }
 }
+
+.warning-layout{
+    color: $white;
+    background-color: $warning;
+    border-radius: 20px;
+    padding-top: px;
+    padding-bottom: 5px;
+    padding-left: 25px;
+    padding-right: 25px;
+} 
+
+.blue-layout{
+    color: $white;
+    background-color: $blue;
+    border-radius: 20px;
+    padding-top: px;
+    padding-bottom: 5px;
+    padding-left: 25px;
+    padding-right: 25px;
+} 
+
+.gray-layout{
+    color: $white;
+    background-color: $font-title-color;
+    border-radius: 20px;
+    padding-top: px;
+    padding-bottom: 5px;
+    padding-left: 25px;
+    padding-right: 25px;
+} 
 
 .add-btn-theme {
     width: 100px;
@@ -212,6 +262,10 @@ img {
 .pt-pb-30 {
     padding-top: 30px;
     padding-bottom: 30px;
+}
+
+.pt-30 {
+    padding-top: 30px !important;
 }
 
 .pt-100 {

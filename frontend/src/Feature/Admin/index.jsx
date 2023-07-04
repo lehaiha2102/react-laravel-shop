@@ -13,6 +13,11 @@ import Manufacturer from './Manufacture/Manufacturers';
 import AddProduct from './Product/AddProduct';
 import Product from './Product/Product';
 import Global from './Global/Global';
+import Customers from './Customer/Customer';
+import AddCustomer from './Customer/AddCustomer';
+import Orders from './Order/Order';
+import OrderDetail from './Order/OrderDetail';
+import Dashboard from './Dashboard/Dashboard';
 
 
 function Admin() {
@@ -21,6 +26,7 @@ function Admin() {
   return (
       <Main>
         <Routes location={location}>
+          <Route path='/' element={<Dashboard/>} />
           <Route path='/categories' element={<Category />} />
           <Route path='/categories/add-category' element={<AddCategory/>}/>
           <Route path='/products' element={<Product />} />
@@ -34,6 +40,10 @@ function Admin() {
           <Route path='/groups/add' element={<AddGroup/>}/>
           <Route path='/globals' element={<Global/>}/>
           <Route path='/globals/add' element={<AddGroup/>}/>
+          <Route path='/customers' element={<Customers/>}/>
+          <Route path='/customers/add-customer' element={<AddCustomer/>}/>
+          <Route path='/orders' element={<Orders/>}/>
+          <Route path='/orders/detail' element={<OrderDetail/>}/>
           <Route path='*' element={<PageNotFound/>} />
         </Routes>
       </Main>

@@ -39,7 +39,7 @@ function Category() {
   return (
     <>
       <div className="page-title">
-        <span className="title text-title">Categories</span>
+        <span className="title font-heading">Categories</span>
         {/* <SearchIcon className="search-btn"/> */}
 
         <input
@@ -71,7 +71,7 @@ function Category() {
           </div>
         </Box>
 
-        <Link to="/admin/categories/add-category" className="add-btn text-title">
+        <Link to="/admin/categories/add-category" className="add-btn font-btn add-btn-theme">
           <AddIcon />
           Add
         </Link>

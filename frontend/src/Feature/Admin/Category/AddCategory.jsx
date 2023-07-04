@@ -14,7 +14,7 @@ function AddCategory() {
   };
   return (
     <>
-      <div className="add-title text-title">Create New Category</div>
+      <div className="add-title font-heading">Create New Category</div>
       <div className="dashed-line"></div>
 
       <AddCategoryForm  onSubmit={handleSubmit} />

@@ -55,7 +55,7 @@ function Group() {
   };
     return (  <>
         <div className="page-title">
-          <span className="title text-title">Groups</span>
+          <span className="title font-heading">Groups</span>
           {/* <SearchIcon className="search-btn"/> */}
   
           <input
@@ -92,7 +92,7 @@ function Group() {
             </div>
           </Box>
   
-          <Link to="/admin/groups/add" className="add-btn text-title">
+          <Link to="/admin/groups/add" className="add-btn font-btn add-btn-theme">
             <AddIcon />
             Add
           </Link>
