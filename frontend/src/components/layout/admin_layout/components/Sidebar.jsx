@@ -8,6 +8,7 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
 import GroupIcon from '@mui/icons-material/Group';
+import PublicIcon from '@mui/icons-material/Public';
 
 function Sidebar() {
   return (
@@ -62,7 +63,7 @@ function Sidebar() {
           </Link>
         </li>
         <li className="menu-item mt-20">
-          <Link to="8">
+          <Link to="/admin/reviews">
             <ThumbUpIcon className="menu-icon font-title" />
             <span className="menu-title font-title">Review</span>
           </Link>
@@ -71,6 +72,12 @@ function Sidebar() {
           <Link to="/admin/orders">
             <ShoppingBasketIcon className="menu-icon font-title" />
             <span className="menu-title font-title">Orders</span>
+          </Link>
+        </li>
+        <li className="menu-item mt-20">
+          <Link to="/admin/globals">
+            <PublicIcon className="menu-icon font-title" />
+            <span className="menu-title font-title">Global</span>
           </Link>
         </li>
       </ul>

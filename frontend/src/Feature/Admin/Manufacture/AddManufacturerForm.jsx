@@ -191,8 +191,8 @@ function AddManufacturerForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="row image-upload">
-        <div className="upload-title col-md-4">
+      <div className="image-upload">
+        <div className="upload-title">
           <div className="title  font-table-title">Logo</div>
           <div className="description  text-font shawdow-text">
             Upload your Manufacturer/Publication logo from here. Dimension
@@ -216,7 +216,7 @@ function AddManufacturerForm() {
             className="image-category"
             onChange={handleImageUpload}
           />
-          <div className="images-show">
+          <div className="images-show feature-logo">
             {selectedImage && <img src={selectedImage} alt="uploaded image" />}
           </div>
         </div>
@@ -224,8 +224,8 @@ function AddManufacturerForm() {
 
       <div className="dashed-line"></div>
 
-      <div className="row image-upload">
-        <div className="upload-title col-md-4">
+      <div className="image-upload">
+        <div className="upload-title">
           <div className="title font-table-title">Cover Image</div>
           <div className="description text-font shawdow-text">
             Upload your Manufacturer/Publication cover image from here,
@@ -249,7 +249,7 @@ function AddManufacturerForm() {
             className="image-category"
             onChange={handleGalleryUpload}
           />
-          <div className="images-show">
+          <div className="images-show feature-logo">
             {selectedGallery.map((image, index) => (
               <img key={index} src={image} alt={`uploaded image ${index}`} />
             ))}
@@ -259,7 +259,7 @@ function AddManufacturerForm() {
 
       <div className="dashed-line"></div>
       <div className="row cate-info-upload">
-        <div className="upload-title col-md-4">
+        <div className="upload-title">
           <div className="title  font-table-title">Description</div>
           <div className="description text-font shawdow-text">
             Add some information and manufacturer description from here.

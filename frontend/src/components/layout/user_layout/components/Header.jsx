@@ -1,11 +1,9 @@
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Link } from "react-router-dom";
-import MobileMenu from "./MobileMenu";
-
+import "./assets/style.css";
 function Header() {
     return ( 
-        <header className="header">
-        <div className="main-logo">
+        <header>
+        <div className="w-12">
           <Link to="goto">
             <img
               src="https://th.bing.com/th/id/OIP.ZtrNE9GnhsrUDpGXFZ2gagHaJG?pid=ImgDet&rs=1"
@@ -13,14 +11,14 @@ function Header() {
             />
           </Link>
         </div>
-        <nav className="menu">
-          <ul className="text-title">
-            <li className="account">
+        <nav className="">
+          <ul className="">
+            <li className="">
               <span >
-                <AccountCircleIcon className="account-icon"/>
+               
               </span>
             </li>
-            <MobileMenu/>
+            
           </ul>
         </nav>
       </header>

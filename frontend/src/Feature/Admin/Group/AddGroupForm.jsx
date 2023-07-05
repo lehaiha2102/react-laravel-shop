@@ -128,8 +128,8 @@ function AddGroupForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="row image-upload">
-        <div className="upload-title col-md-4">
+      <div className="image-upload">
+        <div className="upload-title">
           <div className="title font-heading">Image</div>
           <div className="description">Upload your group icon here</div>
         </div>
@@ -150,7 +150,7 @@ function AddGroupForm() {
             className="input-data image-category"
             onChange={handleImageUpload}
           />
-          <div className="images-show">
+          <div className="images-show feature-logo">
             {selectedImage && <img src={selectedImage} alt="uploaded image" />}
           </div>
         </div>
@@ -158,7 +158,7 @@ function AddGroupForm() {
 
       <div className="dashed-line"></div>
       <div className="row cate-info-upload">
-        <div className="upload-title col-md-4">
+        <div className="upload-title">
           <div className="title font-heading">Name</div>
           <div className="description">
             Add your group name and necessary information from her

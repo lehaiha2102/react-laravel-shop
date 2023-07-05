@@ -1,25 +1,12 @@
-import DeleteIcon from "@mui/icons-material/Delete";
-import { IconButton } from "@mui/material";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import UploadImage from "../Assets/Images/upload_image.svg";
 
-function AddProductForm() {
+function EditGlobalForm() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedGallery, setSelectedGallery] = useState([]);
-  const [selectedValues, setSelectedValues] = useState([]);
-
-  const handleCategoryChange = (event) => {
-    const { value } = event.target;
-    setSelectedValues(value);
-  };
-
-  const handleDeleteValue = (value) => {
-    const updatedValues = selectedValues.filter((val) => val !== value);
-    setSelectedValues(updatedValues);
-  };
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -56,14 +43,16 @@ function AddProductForm() {
     };
 
     const loadImages = async () => {
-      const maxImages = 6; 
+      const maxImages = 6;
       const remainingSlots = maxImages - images.length;
-  
+
       if (files.length > remainingSlots) {
-        toast.info(`The number of photos in the gallery exceeds the allowed number (6 photos)`);
+        toast.info(
+          `The number of photos in the gallery exceeds the allowed number (6 photos)`
+        );
         return;
       }
-  
+
       for (const file of files) {
         try {
           const image = await loadImage(file);
@@ -72,7 +61,7 @@ function AddProductForm() {
           console.error("Error loading image:", error);
         }
       }
-  
+
       setSelectedGallery(images);
     };
 
@@ -87,40 +76,43 @@ function AddProductForm() {
 
   const schema = yup
     .object({
-      name: yup
+      fullName: yup
         .string()
-        .required("Please enter product name")
-        .max(255, "Product name should not exceed 255 characters")
+        .required("Your name is required")
         .matches(
-          /^[A-Za-z ]*$/,
-          "Product name should only contain letters and spaces"
+          /^[a-zA-Z\s]*$/,
+          "Your name must only contain letters and spaces"
+        )
+        .max(255, "Your name must be at most 255 characters long"),
+      email: yup
+        .string()
+        .required("Your email is required")
+        .matches(
+          /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+          "Invalid email format"
         ),
-      image: yup
+      password: yup
         .string()
-        .required("Please enter product image")
-        .matches(/\.(jpg|png)$/, "Product image must be in JPG or PNG format"),
-      galleryimage: yup
-        .string()
-        .required("Please enter Product image")
-        .matches(/\.(jpg|png)$/, "Product image must be in JPG or PNG format"),
-      description: yup
-        .string()
-        .required("Please enter product description")
-        .min(100, "Product description is too short"),
+        .required("Your password is required")
+        .matches(
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+          "Your password must contain at least 8 characters, including lowercase letters, uppercase letters, and numbers"
+        ),
     })
     .required();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     const formData = {
-      name: event.target.name.value,
-      image: event.target.image.value,
-      galleryimage: event.target.galleryImage.value,
-      description: event.target.description.value,
+      fullName: event.target.elements.fullName.value,
+      email: event.target.elements.email.value,
+      password: event.target.elements.password.value,
     };
 
     try {
       await schema.validate(formData, { abortEarly: false });
+      console.log("No validation errors");
     } catch (error) {
       if (error.inner) {
         error.inner.forEach((validationError) => {
@@ -131,14 +123,13 @@ function AddProductForm() {
       }
     }
   };
-
   return (
     <form onSubmit={handleSubmit}>
       <div className="image-upload">
         <div className="upload-title">
-          <div className="title font-table-title">Featured Image</div>
-          <div className="description text-font shawdow-text">
-            Upload your product featured image here
+          <div className="title font-table-title">Logo</div>
+          <div className="description  text-font shawdow-text">
+            Upload your website logo here
           </div>
         </div>
         <div className="upload-input">
@@ -168,9 +159,9 @@ function AddProductForm() {
 
       <div className="image-upload">
         <div className="upload-title">
-          <div className="title font-heading font-table-title">Gallery</div>
+          <div className="title font-heading font-table-title">Slider</div>
           <div className="description text-font shawdow-text">
-            Upload your product image gallery here
+            Upload your website slider gallery here
           </div>
         </div>
         <div className="upload-input">
@@ -193,144 +184,89 @@ function AddProductForm() {
           />
           <div className="images-show ">
             {selectedGallery.map((image, index) => (
-              <img key={index} src={image} alt={`uploaded image ${index}`} />
+              <img
+                className="gallery-image-item"
+                key={index}
+                src={image}
+                alt={`uploaded image ${index}`}
+              />
             ))}
           </div>
         </div>
       </div>
 
       <div className="dashed-line"></div>
-
-      <div className="row cate-info-upload">
+      <div className="cate-info-upload">
         <div className="upload-title">
-          <div className="title font-heading font-table-title">
-            Categories & Manufacture
-          </div>
+          <div className="title font-table-title">Description</div>
           <div className="description text-font shawdow-text">
-            Select product categories and manufacture from here
-          </div>
-        </div>
-        <div className="upload-input">
-          <select name="category" className="input-data" defaultValue="">
-            <option value="" disabled>
-              Select Category
-            </option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-          </select>
-
-          <div className="value">
-            <div className="selected-values">
-              {selectedValues.map((value) => (
-                <div key={value} className="selected-value">
-                  {value}
-                  <IconButton
-                    aria-label="delete"
-                    size="small"
-                    onClick={() => handleDeleteValue(value)}
-                  >
-                    <DeleteIcon className="icon" />
-                  </IconButton>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <select name="manufacturer" id="" className="input-data">
-            <option value="">Select Manufacturer</option>
-          </select>
-        </div>
-      </div>
-
-      <div className="dashed-line"></div>
-
-      <div className="row cate-info-upload">
-        <div className="upload-title">
-          <div className="title font-heading font-table-title">Description</div>
-          <div className="description text-font shawdow-text">
-            Add your product description and necessary information from here
+            Add website description and necessary information from here
           </div>
         </div>
         <div className="upload-input">
           <input
-            id="outlined-basic"
-            placeholder="Name"
-            variant="outlined"
+            type="text"
             className="input-data"
             name="name"
+            placeholder="Full Name"
           />
           <input
-            id="outlined-basic"
-            placeholder="Price"
-            variant="outlined"
+            type="text"
             className="input-data"
-            name="price"
-            type="number"
+            name="address"
+            placeholder="Address"
           />
           <input
-            id="outlined-basic"
-            placeholder="Sale Price"
-            variant="outlined"
+            type="text"
             className="input-data"
-            name="sale_price"
-            type="number"
+            name="email"
+            placeholder="Email"
           />
-          <input
-            id="outlined-basic"
-            placeholder="Quantity"
-            variant="outlined"
-            className="input-data"
-            name="quantity"
-            type="number"
-          />
-          <textarea
-            name="description"
-            id=""
-            cols="30"
-            rows="10"
-            defaultValue="Description"
-            className="input-data"
-          ></textarea>
-          <label htmlFor="status">
-            <input type="radio" name="status" id="" /> Published
-            <input type="radio" name="status" id="" />
-            Draft
-          </label>
         </div>
       </div>
 
       <div className="dashed-line"></div>
-
-      <div className="row cate-info-upload">
+      <div className="cate-info-upload">
         <div className="upload-title">
-          <div className="title font-heading font-table-title">Attributes</div>
+          <div className="title font-table-title">
+            Social networks of the website
+          </div>
           <div className="description text-font shawdow-text">
-            Select your product's attributes from here
+            Add links to your social network pages if available
           </div>
         </div>
         <div className="upload-input">
-          <label>
-            <input type="checkbox" name="color" value="apple" /> Apple
-          </label>
-          <label>
-            <input type="checkbox" name="color" value="banana" /> Banana
-          </label>
-          <label>
-            <input type="checkbox" name="color" value="orange" /> Orange
-          </label>
+          <input
+            type="text"
+            className="input-data"
+            name="facebook"
+            placeholder="Facebook"
+          />
+          <input
+            type="text"
+            className="input-data"
+            name="instagram"
+            placeholder="Instagram"
+          />
+          <input
+            type="text"
+            className="input-data"
+            name="twitter"
+            placeholder="Twitter"
+          />
         </div>
       </div>
 
       <div className="submit-btn">
-        <Link to="/admin/products" className="btn-white">
+        <Link to="/admin/customers" className="btn-white">
           Back
         </Link>
         <button className="btn-blue" type="submit">
-          Add product
+          Add Customer
         </button>
       </div>
     </form>
   );
 }
 
-export default AddProductForm;
+export default EditGlobalForm;

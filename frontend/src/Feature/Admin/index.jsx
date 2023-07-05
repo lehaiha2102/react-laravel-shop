@@ -6,18 +6,20 @@ import AddCategory from './Category/AddCategory';
 import Category from './Category/Category';
 import AddCoupon from './Coupons/AddCoupon';
 import Coupons from './Coupons/Coupons';
+import AddCustomer from './Customer/AddCustomer';
+import Customers from './Customer/Customer';
+import Dashboard from './Dashboard/Dashboard';
+import EditGlobal from './Global/AddGlobal';
+import Global from './Global/Global';
 import AddGroup from './Group/AddGroup';
 import Group from './Group/Group';
 import AddManufacturer from './Manufacture/AddManufacturer';
 import Manufacturer from './Manufacture/Manufacturers';
-import AddProduct from './Product/AddProduct';
-import Product from './Product/Product';
-import Global from './Global/Global';
-import Customers from './Customer/Customer';
-import AddCustomer from './Customer/AddCustomer';
 import Orders from './Order/Order';
 import OrderDetail from './Order/OrderDetail';
-import Dashboard from './Dashboard/Dashboard';
+import AddProduct from './Product/AddProduct';
+import Product from './Product/Product';
+import Reviews from './Review/Review';
 
 
 function Admin() {
@@ -39,12 +41,13 @@ function Admin() {
           <Route path='/groups' element={<Group/>}/>
           <Route path='/groups/add' element={<AddGroup/>}/>
           <Route path='/globals' element={<Global/>}/>
-          <Route path='/globals/add' element={<AddGroup/>}/>
+          <Route path='/globals/edit' element={<EditGlobal/>}/>
           <Route path='/customers' element={<Customers/>}/>
           <Route path='/customers/add-customer' element={<AddCustomer/>}/>
           <Route path='/orders' element={<Orders/>}/>
           <Route path='/orders/detail' element={<OrderDetail/>}/>
-          <Route path='*' element={<PageNotFound/>} />
+          <Route path='/reviews' element={<Reviews/>}/>
+          <Route path='*' element={<Dashboard/>} />
         </Routes>
       </Main>
   );
