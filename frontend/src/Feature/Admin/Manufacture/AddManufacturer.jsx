@@ -1,11 +1,13 @@
 import AddManufacturerForm from "./AddManufacturerForm";
+import admin from "../../../components/layout/admin_layout/components/css/style.module.scss";
+
 
 function AddManufacturer() {
 
   return (
     <>
-      <div className="add-title font-heading">Create New Manufacturer</div>
-      <div className="dashed-line"></div>
+     <div className={`${admin["add-title"]} ${admin["font-heading"]}`}>Create New Manufacturer</div>
+      <div className={admin["dashed-line"]}></div>
 
      <AddManufacturerForm/>
     </>

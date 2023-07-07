@@ -1,13 +1,15 @@
 
 import AddCouponForm from "./AddCouponForm";
+import admin from "../../../components/layout/admin_layout/components/css/style.module.scss";
+
 
 function AddCoupon() {
 
 
   return (
     <>
-      <div className="add-title font-heading">Create New Coupon</div>
-      <div className="dashed-line"></div>
+     <div className={`${admin["add-title"]} ${admin["font-heading"]}`}>Create New Coupon</div>
+      <div className={admin["dashed-line"]}></div>
 
      <AddCouponForm/>
     </>

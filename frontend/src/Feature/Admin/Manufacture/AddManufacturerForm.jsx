@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import UploadImage from "../Assets/Images/upload_image.svg";
+import admin from "../../../components/layout/admin_layout/components/css/style.module.scss";
 
 function AddManufacturerForm() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -161,50 +162,62 @@ function AddManufacturerForm() {
     })
     .required();
 
-    const handleSubmit = async (event) => {
-      event.preventDefault();
-    
-      const formData = {
-        name: event.target.elements.name.value,
-        image: event.target.elements.image.files[0],
-        convertImage: event.target.elements.convertImage.files[0],
-        website: event.target.elements.website.value,
-        email: event.target.elements.email.value,
-        phone: event.target.elements.phone.value,
-        address: event.target.elements.address.value,
-        description: event.target.elements.description.value,
-      };
-    
-      try {
-        await schema.validate(formData, { abortEarly: false });
-        console.log("No validation errors");
-      } catch (error) {
-        if (error.inner) {
-          error.inner.forEach((validationError) => {
-            toast.error(validationError.message);
-          });
-        } else {
-          console.log("No validation errors");
-        }
-      }
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const formData = {
+      name: event.target.elements.name.value,
+      image: event.target.elements.image.files[0],
+      convertImage: event.target.elements.convertImage.files[0],
+      website: event.target.elements.website.value,
+      email: event.target.elements.email.value,
+      phone: event.target.elements.phone.value,
+      address: event.target.elements.address.value,
+      description: event.target.elements.description.value,
     };
+
+    try {
+      await schema.validate(formData, { abortEarly: false });
+      console.log("No validation errors");
+    } catch (error) {
+      if (error.inner) {
+        error.inner.forEach((validationError) => {
+          toast.error(validationError.message);
+        });
+      } else {
+        console.log("No validation errors");
+      }
+    }
+  };
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="image-upload">
-        <div className="upload-title">
-          <div className="title  font-table-title">Logo</div>
-          <div className="description  text-font shawdow-text">
+      <div className={admin["image-upload"]}>
+        <div className={admin["upload-title"]}>
+          <div
+            className={`${admin.title} ${admin["font-heading"]} ${admin["font-table-title"]}`}
+          >
+            Logo
+          </div>
+          <div
+            className={`${admin.title} ${admin["text-font "]} ${admin["shawdow-text"]}`}
+          >
             Upload your Manufacturer/Publication logo from here. Dimension
             should be 160 x 160 px.
           </div>
         </div>
-        <div className="upload-input">
+        <div className={admin["upload-input"]}>
           <label htmlFor="image-upload-input">
-            <img src={UploadImage} alt="upload image" className="upload-icon" />
-            <div className="descriptions text-font">
-              <span className="color-blue upload-image-title blue-text-font">
-                Upload an image{" "}
+            <img
+              src={UploadImage}
+              alt="upload image"
+              className={admin["upload-icon"]}
+            />
+            <div className={`${admin["descriptions"]} ${admin["text-font"]}`}>
+              <span
+                className={`${admin["blue-text-font"]} ${admin["upload-image-title"]}`}
+              >
+                Upload an image
               </span>
               <span>or drag and drop</span>
             </div>
@@ -213,30 +226,42 @@ function AddManufacturerForm() {
             type="file"
             id="image-upload-input"
             name="image"
-            className="image-category"
+            className={`${admin["input-data"]} ${admin["image-category"]}`}
             onChange={handleImageUpload}
           />
-          <div className="images-show feature-logo">
+          <div className={`${admin["images-show"]} ${admin["feature-logo"]}`}>
             {selectedImage && <img src={selectedImage} alt="uploaded image" />}
           </div>
         </div>
       </div>
 
-      <div className="dashed-line"></div>
+      <div className={admin["dashed-line"]}></div>
 
-      <div className="image-upload">
-        <div className="upload-title">
-          <div className="title font-table-title">Cover Image</div>
-          <div className="description text-font shawdow-text">
+      <div className={admin["image-upload"]}>
+        <div className={admin["upload-title"]}>
+          <div
+            className={`${admin.title} ${admin["font-heading"]} ${admin["font-table-title"]}`}
+          >
+            Cover Image
+          </div>
+          <div
+            className={`${admin.title} ${admin["text-font "]} ${admin["shawdow-text"]}`}
+          >
             Upload your Manufacturer/Publication cover image from here,
             Dimension should be 960 x 340 px.
           </div>
         </div>
-        <div className="upload-input">
+        <div className={admin["upload-input"]}>
           <label htmlFor="gallery-image-upload-input">
-            <img src={UploadImage} alt="upload image" className="upload-icon" />
-            <div className="descriptions text-font">
-              <span className="color-blue upload-image-title blue-text-font">
+            <img
+              src={UploadImage}
+              alt="upload image"
+              className={admin["upload-icon"]}
+            />
+            <div className={`${admin["descriptions"]} ${admin["text-font"]}`}>
+              <span
+                className={`${admin["blue-text-font"]} ${admin["upload-image-title"]}`}
+              >
                 Upload an image{" "}
               </span>
               <span>or drag and drop</span>
@@ -246,7 +271,7 @@ function AddManufacturerForm() {
             type="file"
             id="gallery-image-upload-input"
             name="convertImage"
-            className="image-category"
+            className={`${admin["input-data"]} ${admin["image-category"]}`}
             onChange={handleGalleryUpload}
           />
           <div className="images-show feature-logo">
@@ -257,69 +282,64 @@ function AddManufacturerForm() {
         </div>
       </div>
 
-      <div className="dashed-line"></div>
-      <div className="row cate-info-upload">
-        <div className="upload-title">
-          <div className="title  font-table-title">Description</div>
-          <div className="description text-font shawdow-text">
-            Add some information and manufacturer description from here.
+      <div className={admin["dashed-line"]}></div>
+      <div className={`${admin["cate-info-upload"]}`}>
+        <div className={`${admin["upload-title"]}`}>
+          <div
+            className={`${admin.title} ${admin["font-heading"]} ${admin["font-table-title"]}`}
+          >
+           Description
+          </div>
+          <div
+            className={`${admin.description} ${admin.textFont} ${admin.shawdowText}`}
+          >
+           Add some information and manufacturer description from here.
           </div>
         </div>
-        <div className="upload-input">
-          <input
+        <div className={admin["upload-input"]}>
+        <input
             id="outlined-basic"
             placeholder="Name"
             variant="outlined"
-            className="input-data"
+            className={admin["input-data"]}
             name="name"
           />
           <input
             id="outlined-basic"
             placeholder="Website"
             variant="outlined"
-            className="input-data"
+            className={admin["input-data"]}
             name="website"
           />
           <input
             id="outlined-basic"
             placeholder="Email"
             variant="outlined"
-            className="input-data"
+            className={admin["input-data"]}
             name="email"
           />
           <input
             id="outlined-basic"
             placeholder="Phone"
             variant="outlined"
-            className="input-data"
+            className={admin["input-data"]}
             name="phone"
           />
           <input
             id="outlined-basic"
             placeholder="Address"
             variant="outlined"
-            className="input-data"
+            className={admin["input-data"]}
             name="address"
           />
-          <label htmlFor="myTextarea" className="input-data"></label>
-          <textarea
-            id="myTextarea"
-            className="input-data"
-            cols="30"
-            rows="10"
-            title="Please enter manufacturer description here"
-            placeholder="Please enter manufacturer description here"
-            name="description"
-          ></textarea>
         </div>
       </div>
-
-      <div className="submit-btn">
-        <Link to="/admin/manufacturers" className="btn-white">
+      <div className={admin["submit-btn"]}>
+        <Link to="/admin/groups" className={admin["btn-white"]}>
           Back
         </Link>
-        <button className="btn-blue" type="submit">
-          Add Manufacturer
+        <button className={admin["btn-blue"]} type="submit">
+          Add Category
         </button>
       </div>
     </form>

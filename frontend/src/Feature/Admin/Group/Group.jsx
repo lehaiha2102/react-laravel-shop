@@ -13,6 +13,8 @@ import TextField from "@mui/material/TextField";
 import * as React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import admin from "../../../components/layout/admin_layout/components/css/style.module.scss";
+
 
 const currencies = [
     {
@@ -54,13 +56,13 @@ function Group() {
     setIsClicked(false);
   };
     return (  <>
-        <div className="page-title">
-          <span className="title font-heading">Groups</span>
+        <div className={admin["page-title"]}>
+          <span className={`${admin.title} ${admin["font-heading"]}`}>Groups</span>
           {/* <SearchIcon className="search-btn"/> */}
   
           <input
             type="text"
-            className={`search ${isClicked ? "clicked" : ""}`}
+            className={`${admin.search} ${isClicked ? admin.clicked : ""}`}
             onClick={changeBorderColor}
             onBlur={resetBorderColor}
             placeholder="Type your query and press enter"
@@ -92,13 +94,13 @@ function Group() {
             </div>
           </Box>
   
-          <Link to="/admin/groups/add" className="add-btn font-btn add-btn-theme">
+          <Link to="/admin/groups/add"className={`${admin["add-btn"]} ${admin["font-btn"]} ${admin["add-btn-theme"]}`}>
             <AddIcon />
             Add
           </Link>
         </div>
   
-        <div className="data-table">
+        <div className={admin["data-table"]}>
           <TableContainer component={Paper} style={{ marginBottom: "10px" }}>
             <Table sx={{ minWidth: 650 }} aria-label="caption table">
               <TableHead>
@@ -130,7 +132,7 @@ function Group() {
             </Table>
           </TableContainer>
         </div>
-        <Stack spacing={2} className="pagination">
+        <Stack spacing={2}  className={admin.pagination}>
           <Pagination count={10} color="primary" />
         </Stack>
       </> );

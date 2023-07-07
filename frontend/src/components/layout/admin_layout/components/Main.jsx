@@ -1,7 +1,6 @@
 
 import Header from "./Header";
-import './css/style.scss';
-import './css/mobile.scss';
+import admin from './css/style.module.scss';
 import Sidebar from "./sidebar";
 import { ToastContainer } from "react-toastify";
 
@@ -11,10 +10,10 @@ function Main({ children }) {
        <ToastContainer/>
       <Header />
 
-      <div className="container">
+      <div className={admin.container}>
         <Sidebar />
 
-        <main className="content">
+        <main className={admin.content}>
           {children}
         </main>
       </div>

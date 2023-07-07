@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
+import admin from "../../../components/layout/admin_layout/components/css/style.module.scss";
+
 
 function AddCustomerForm() {
 
@@ -55,33 +57,33 @@ function AddCustomerForm() {
   };
   return (
     <form onSubmit={handleSubmit}>
-      <div className="cate-info-upload">
-        <div className="upload-title">
-          <div className="title font-table-title">Description</div>
-          <div className="description text-font shawdow-text">
+    <div className={admin['cate-info-upload']}>
+         <div className={admin["upload-title"]}>
+          <div className={`${admin.title} ${admin["font-heading"]}`}>Description</div>
+          <div className={`${admin.title} ${admin["text-font "]} ${admin["shawdow-text"]}`}>
             Add customer description and necessary information from here
           </div>
         </div>
-        <div className="upload-input">
+        <div className={admin["upload-input"]}>
           <input
             type="text"
-            className="input-data"
+            className={admin["input-data"]}
             name="fullName"
             placeholder="Full Name"
           />
           <input
             type="email"
-            className="input-data"
+            className={admin["input-data"]}
             name="email"
             placeholder="Email"
           />
           <input
             type="password"
-            className="input-data"
+            className={admin["input-data"]}
             name="password"
             placeholder="Password"
           />
-          <select name="role" id="" className="input-data">
+          <select name="role" id="" className={admin["input-data"]}>
             <option value="1" selected>
               User
             </option>

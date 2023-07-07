@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import UploadImage from "../Assets/Images/upload_image.svg";
 import { toast } from "react-toastify";
 import * as yup from "yup";
+import admin from "../../../components/layout/admin_layout/components/css/style.module.scss";
 
 function AddCouponForm() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -23,25 +24,6 @@ function AddCouponForm() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const [isGeneratingCodes, setIsGeneratingCodes] = useState(false);
-
-  const currencies = [
-    {
-      value: "USD",
-      label: "$",
-    },
-    {
-      value: "EUR",
-      label: "€",
-    },
-    {
-      value: "BTC",
-      label: "฿",
-    },
-    {
-      value: "JPY",
-      label: "¥",
-    },
-  ];
 
   const handleNumberOfCodesChange = (event) => {
     const count = parseInt(event.target.value);
@@ -154,7 +136,10 @@ function AddCouponForm() {
         .required("Please enter code quantity")
         .max(1000, "Code quantity cannot exceed 1000"),
       type: yup.string().required("Please enter coupons type"),
-      minimunCartAmount: yup.number().required('Please enter minumun cart amount').min(1, "Minimun cart amount is 1"),
+      minimunCartAmount: yup
+        .number()
+        .required("Please enter minumun cart amount")
+        .min(1, "Minimun cart amount is 1"),
     })
     .required();
 
@@ -185,19 +170,29 @@ function AddCouponForm() {
   };
   return (
     <form onSubmit={handleSubmit}>
-      <div className="image-upload">
-        <div className="upload-title">
-          <div className="title font-table-title">Image</div>
-          <div className="description text-font shawdow-text">
+      <div className={`${admin["image-upload"]}`}>
+        <div className={`${admin["upload-title"]}`}>
+          <div className={`${admin.title} ${admin["font-table-title"]}`}>
+            Image
+          </div>
+          <div
+            className={`${admin.description} ${admin.textFont} ${admin.shawdowText}`}
+          >
             Upload your coupon image here
           </div>
         </div>
-        <div className="upload-input">
+        <div className={`${admin["upload-input"]}`}>
           <label htmlFor="image-upload-input">
-            <img src={UploadImage} alt="upload image" className="upload-icon" />
-            <div className="descriptions text-font">
-              <span className="color-blue upload-image-title blue-text-font">
-                Upload an image{" "}
+            <img
+              src={UploadImage}
+              alt="upload image"
+              className={`${admin["upload-icon"]}`}
+            />
+            <div className={`${admin.descriptions} ${admin.textFont}`}>
+              <span
+                className={`${admin["color-blue"]} ${admin["upload-image-title"]} ${admin["blue-text-font"]}`}
+              >
+                Upload an image
               </span>
               <span>or drag and drop</span>
             </div>
@@ -206,30 +201,37 @@ function AddCouponForm() {
             type="file"
             id="image-upload-input"
             name="image"
-            className="image-category"
+            className={`${admin["image-category"]}`}
             onChange={handleImageUpload}
           />
-          <div className="images-show">
+          <div className={`${admin["images-show"]}`}>
             {selectedImage && <img src={selectedImage} alt="uploaded image" />}
           </div>
         </div>
       </div>
 
       <div className="dashed-line"></div>
-      <div className="cate-info-upload">
-        <div className="upload-title">
-          <div className="title font-table-title">Description</div>
-          <div className="description text-font shawdow-text">
+
+      <div className={`${admin["cate-info-upload"]}`}>
+        <div className={`${admin["upload-title"]}`}>
+          <div
+            className={`${admin.title} ${admin["font-heading"]} ${admin["font-table-title"]}`}
+          >
+            Description
+          </div>
+          <div
+            className={`${admin.description} ${admin.textFont} ${admin.shawdowText}`}
+          >
             Add your coupon description and necessary information from here
           </div>
         </div>
-        <div className="upload-input">
-          <div className="text-field">
+        <div className={`${admin["upload-input"]}`}>
+          <div className={`${admin["text-field"]}`}>
             <TextField
               id="outlined-basic"
               label="Number of coupon codes"
               variant="outlined"
-              className="input-data"
+              className={`${admin["input-data"]}`}
               name="codeQuantity"
               type="number"
               defaultValue={0}
@@ -238,7 +240,7 @@ function AddCouponForm() {
             />
             <Button
               onClick={generateCode}
-              className="random-code"
+              className={`${admin["random-code"]}`}
               disabled={isGeneratingCodes}
             >
               <TouchAppIcon />
@@ -252,7 +254,7 @@ function AddCouponForm() {
                 id={`code-${index}`}
                 label="Code"
                 variant="outlined"
-                className="input-data"
+                className={`${admin["input-data"]}`}
                 value={code}
                 name="code"
                 onChange={(event) => handleCodeChange(event, codeIndex)}
@@ -260,14 +262,17 @@ function AddCouponForm() {
             );
           })}
           {!showAllCodes && couponCodes.length > itemsPerPage && (
-            <Button onClick={handleShowAllCodes} className="show-more-button">
+            <Button
+              onClick={handleShowAllCodes}
+              className={`${admin["show-more-button"]}`}
+            >
               Show more
             </Button>
           )}
-          <FormControl className="status">
+          <FormControl className={`${admin.status}`}>
             <FormLabel
               id="demo-radio-buttons-group-label"
-              className=" text-font shawdow-text"
+              className={`${admin.textFont} ${admin.shawdowText}`}
             >
               Type
             </FormLabel>
@@ -298,34 +303,34 @@ function AddCouponForm() {
             id="outlined-basic"
             label="Minimum cart amount (USD)"
             variant="outlined"
-            className="input-data"
+            className={`${admin["input-data"]}`}
             name="minimunCartAmount"
             type="number"
             defaultValue={0}
           />
           <TextareaAutosize
-            className="input-data"
+            className={`${admin["input-data"]}`}
             placeholder="Details"
             name="details"
           />
 
-          <div className="text-field">
-            <div className="field-1">
+          <div className={`${admin["text-field"]}`}>
+            <div className={`${admin["field-1"]}`}>
               <label htmlFor="active-date">Active Date</label>
               <input
                 id="active-date"
                 variant="outlined"
-                className="input-data"
+                className={`${admin["input-data"]}`}
                 name="activeDay"
                 type="date"
               />
             </div>
-            <div className="field-1">
+            <div className={`${admin["field-1"]}`}>
               <label htmlFor="willExpire">Will Expire</label>
               <input
                 id="willExpire"
                 variant="outlined"
-                className="input-data will-expire"
+                className={`${admin["input-data"]} ${admin["will-expire"]}`}
                 name="willExpire"
                 type="date"
               />
@@ -334,11 +339,11 @@ function AddCouponForm() {
         </div>
       </div>
 
-      <div className="submit-btn">
-        <Link to="/admin/coupons" className="btn-white">
+      <div className={`${admin["submit-btn"]}`}>
+        <Link to="/admin/coupons" className={`${admin["btn-white"]}`}>
           Back
         </Link>
-        <button className="btn-blue" type="submit">
+        <button className={`${admin["btn-blue"]}`} type="submit">
           Add Coupon
         </button>
       </div>

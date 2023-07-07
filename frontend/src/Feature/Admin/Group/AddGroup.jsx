@@ -2,6 +2,8 @@
 
 import { useSnackbar } from "notistack";
 import AddGroupForm from "./AddGroupForm";
+import admin from "../../../components/layout/admin_layout/components/css/style.module.scss";
+
 
 
 function AddGroup() {
@@ -22,8 +24,8 @@ function AddGroup() {
 
   return (
     <>
-      <div className="add-title font-heading">Create New Groups</div>
-      <div className="dashed-line"></div>
+     <div className={`${admin["add-title"]} ${admin["font-heading"]}`}>Create New Groups</div>
+      <div className={admin["dashed-line"]}></div>
 
       <AddGroupForm onSubmit={handleSubmit}/>
     </>

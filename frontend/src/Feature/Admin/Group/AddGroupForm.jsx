@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import UploadImage from "../Assets/Images/upload_image.svg";
+import admin from "../../../components/layout/admin_layout/components/css/style.module.scss";
 
 function AddGroupForm() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -128,17 +129,31 @@ function AddGroupForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="image-upload">
-        <div className="upload-title">
-          <div className="title font-heading">Image</div>
-          <div className="description">Upload your group icon here</div>
+      <div className={admin["image-upload"]}>
+        <div className={admin["upload-title"]}>
+          <div
+            className={`${admin.title} ${admin["font-heading"]} ${admin["font-table-title"]}`}
+          >
+            Image
+          </div>
+          <div
+            className={`${admin.title} ${admin["text-font "]} ${admin["shawdow-text"]}`}
+          >
+            Upload your category image here
+          </div>
         </div>
-        <div className="upload-input">
+        <div className={admin["upload-input"]}>
           <label htmlFor="image-upload-input">
-            <img src={UploadImage} alt="upload image" className="upload-icon" />
-            <div className="descriptions">
-              <span className="color-blue upload-image-title">
-                Upload an icon{" "}
+            <img
+              src={UploadImage}
+              alt="upload image"
+              className={admin["upload-icon"]}
+            />
+            <div className={`${admin["descriptions"]} ${admin["text-font"]}`}>
+              <span
+                className={`${admin["blue-text-font"]} ${admin["upload-image-title"]}`}
+              >
+                Upload an image
               </span>
               <span>or drag and drop</span>
             </div>
@@ -147,41 +162,47 @@ function AddGroupForm() {
             type="file"
             id="image-upload-input"
             name="image"
-            className="input-data image-category"
+            className={`${admin["input-data"]} ${admin["image-category"]}`}
             onChange={handleImageUpload}
           />
-          <div className="images-show feature-logo">
+          <div className={`${admin["images-show"]} ${admin["feature-logo"]}`}>
             {selectedImage && <img src={selectedImage} alt="uploaded image" />}
           </div>
         </div>
       </div>
 
-      <div className="dashed-line"></div>
-      <div className="row cate-info-upload">
-        <div className="upload-title">
-          <div className="title font-heading">Name</div>
-          <div className="description">
-            Add your group name and necessary information from her
+      <div className={admin["dashed-line"]}></div>
+
+      <div className={`${admin["cate-info-upload"]}`}>
+        <div className={`${admin["upload-title"]}`}>
+          <div
+            className={`${admin.title} ${admin["font-heading"]} ${admin["font-table-title"]}`}
+          >
+           Name
+          </div>
+          <div
+            className={`${admin.description} ${admin.textFont} ${admin.shawdowText}`}
+          >
+           Add your group name and necessary information from her
           </div>
         </div>
-        <div className="upload-input">
-          <input
+        <div className={admin["upload-input"]}>
+        <input
             id="outlined-basic"
             placeholder="Name"
             variant="outlined"
-            className="input-data"
+            className={admin["input-data"]}
             name="name"
           />
         </div>
       </div>
-
-      <div className="submit-btn">
-        <Link to="/admin/categories" className="btn-white">
+      <div className={admin["submit-btn"]}>
+        <Link to="/admin/groups" className={admin["btn-white"]}>
           Back
         </Link>
-        <Button className="btn-blue" type="submit">
+        <button className={admin["btn-blue"]} type="submit">
           Add Category
-        </Button>
+        </button>
       </div>
     </form>
   );

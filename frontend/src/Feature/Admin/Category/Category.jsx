@@ -1,29 +1,14 @@
 import AddIcon from "@mui/icons-material/Add";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import Box from "@mui/material/Box";
 import Pagination from "@mui/material/Pagination";
-import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
 import TextField from "@mui/material/TextField";
 import * as React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-
-
-function createData(name, calories, fat, carbs, protein, detail, action) {
-  return { name, calories, fat, carbs, protein, detail, action };
-}
-
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0, 10, 20),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3, 10, 20),
-  createData("Eclair", 262, 16.0, 24, 6.0, 10, 20),
-];
+import admin from "../../../components/layout/admin_layout/components/css/style.module.scss";
 
 function Category() {
   const [isClicked, setIsClicked] = useState(false);
@@ -38,78 +23,126 @@ function Category() {
 
   return (
     <>
-      <div className="page-title">
-        <span className="title font-heading">Categories</span>
-        {/* <SearchIcon className="search-btn"/> */}
+      <div className={admin["page-title"]}>
+        <span className={`${admin.title} ${admin["font-heading"]}`}>Categories</span>
 
-        <input
-          type="text"
-          className={`search ${isClicked ? "clicked" : ""}`}
-          onClick={changeBorderColor}
-          onBlur={resetBorderColor}
-          placeholder="Type your query and press enter"
-        />
+      <input
+  type="text"
+  className={`${admin.search} ${isClicked ? admin.clicked : ""}`}
+  onClick={changeBorderColor}
+  onBlur={resetBorderColor}
+  placeholder="Type your query and press enter"
+/>
 
-        <Box
-          component="form"
-          sx={{
-            "& .MuiTextField-root": { m: 1, width: "25ch" },
-          }}
-          noValidate
-          autoComplete="off"
-        >
-          <div>
-            <TextField
-              id="outlined-select-currency-native"
-              select
-              defaultValue="EUR"
-              SelectProps={{
-                native: true,
-              }}
-            >
-            </TextField>
-          </div>
-        </Box>
+<Box
+  component="form"
+  sx={{
+    "& .MuiTextField-root": { m: 1, width: "25ch" },
+  }}
+  noValidate
+  autoComplete="off"
+>
+  <div>
+    <TextField
+      id="outlined-select-currency-native"
+      select
+      defaultValue="EUR"
+      SelectProps={{
+        native: true,
+      }}
+      className={admin.select}
+    >
+      {/* Các tùy chọn */}
+    </TextField>
+  </div>
+</Box>
 
-        <Link to="/admin/categories/add-category" className="add-btn font-btn add-btn-theme">
-          <AddIcon />
-          Add
-        </Link>
+<Link
+  to="/admin/categories/add-category"
+  className={`${admin["add-btn"]} ${admin["font-btn"]} ${admin["add-btn-theme"]}`}
+>
+  <AddIcon />
+  Add
+</Link>
+
       </div>
 
-      <div className="data-table">
-        <TableContainer component={Paper} style={{ marginBottom: "10px" }}>
-          <Table sx={{ minWidth: 650 }} aria-label="caption table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Image</TableCell>
-                <TableCell align="center">Name</TableCell>
-                <TableCell align="center">Icon</TableCell>
-                <TableCell align="center">Image</TableCell>
-                <TableCell align="center">Slug</TableCell>
-                <TableCell align="center">Detail</TableCell>
-                <TableCell align="center">Action</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map((row) => (
-                <TableRow key={row.name}>
-                  <TableCell component="th" scope="row">
-                    {row.name}
-                  </TableCell>
-                  <TableCell align="center">{row.calories}</TableCell>
-                  <TableCell align="center">{row.fat}</TableCell>
-                  <TableCell align="center">{row.carbs}</TableCell>
-                  <TableCell align="center">{row.protein}</TableCell>
-                  <TableCell align="center">{row.detail}</TableCell>
-                  <TableCell align="center">{row.action}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+      <div className={admin["data-table"]}>
+      <table className={admin.table}>
+          <thead>
+            <tr>
+              <th className={`${admin["font-table-title"]}`}>#</th>
+              <th className={`${admin["font-table-title"]}`}>Name</th>
+              <th className={`${admin["font-table-title"]}`}>Value</th>
+              <th className={`${admin["font-table-title"]}`}>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className={`${admin["text-font"]} ${admin["text-center"]}`}>
+                1
+              </td>
+              <td className={`${admin["text-font"]} ${admin["text-center"]}`}>
+                Mark
+              </td>
+              <td className={`${admin["text-font"]} ${admin["text-center"]}`}>
+                Otto
+              </td>
+              <td
+                className={`${admin["text-font"]} ${admin["text-center"]} ${admin.action}`}
+              >
+                <div className={admin["edit-btn"]}>
+                  <EditOutlinedIcon />
+                </div>
+                <div className={admin["delete-btn"]}>
+                  <DeleteOutlineOutlinedIcon />
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td className={`${admin["text-font"]} ${admin["text-center"]}`}>
+                2
+              </td>
+              <td className={`${admin["text-font"]} ${admin["text-center"]}`}>
+                Jacob
+              </td>
+              <td className={`${admin["text-font"]} ${admin["text-center"]}`}>
+                Thornton
+              </td>
+              <td
+                className={`${admin["text-font"]} ${admin["text-center"]} ${admin.action}`}
+              >
+                <div className={admin["edit-btn"]}>
+                  <EditOutlinedIcon />
+                </div>
+                <div className={admin["delete-btn"]}>
+                  <DeleteOutlineOutlinedIcon />
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td className={`${admin["text-font"]} ${admin["text-center"]}`}>
+                3
+              </td>
+              <td className={`${admin["text-font"]} ${admin["text-center"]}`}>
+                Larry the Bird
+              </td>
+              <td className={`${admin["text-font"]} ${admin["text-center"]}`}>
+                @twitter
+              </td>
+              <td className={`${admin["text-center"]} ${admin.action}`}>
+                  <div className={admin["edit-btn"]}>
+                  <EditOutlinedIcon />
+                </div>
+                <div className={admin["delete-btn"]}>
+                  <DeleteOutlineOutlinedIcon />
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <Stack spacing={2} className="pagination">
+      <Stack spacing={2}  className={admin.pagination}>
         <Pagination count={10} color="primary" />
       </Stack>
     </>

@@ -4,6 +4,8 @@ import AttachMoneyOutlinedIcon from "@mui/icons-material/AttachMoneyOutlined";
 import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
 import ApexCharts from "apexcharts";
 import { useEffect } from "react";
+import admin from "../../../components/layout/admin_layout/components/css/style.module.scss";
+
 
 function Dashboard() {
   useEffect(() => {
@@ -111,60 +113,58 @@ function Dashboard() {
 
   return (
     <>
-      <div className="sales-metrics">
-        <div className="sales-metric">
-          <div className="metric-text">
-            <div className="metric-title font-heading">Total Revenue</div>
-            <div className="metric-note text-font shawdow-text">
-              (Last 30 Days)
-            </div>
-            <div className="metric-price font-heading">$0.00</div>
-          </div>
-          <div className="metric-icon price-icon">
-            <MonetizationOnOutlinedIcon className="dashboard-icon" />
-          </div>
-        </div>
-        <div className="sales-metric">
-          <div className="metric-text">
-            <div className="metric-title font-heading">Total Order</div>
-            <div className="metric-note text-font shawdow-text">
-              (Last 30 Days)
-            </div>
-            <div className="metric-price font-heading">0</div>
-          </div>
-          <div className="metric-icon cart-icon">
-            <ShoppingCartOutlinedIcon className="dashboard-icon" />
-          </div>
-        </div>
-      </div>
+      <div className={`${admin["sales-metrics"]}`}>
+  <div className={`${admin["sales-metric"]}`}>
+    <div className={`${admin["metric-text"]}`}>
+      <div className={`${admin["metric-title"]} ${admin["font-heading"]}`}>Total Revenue</div>
+      <div className={`${admin["metric-note"]} ${admin["text-font"]} ${admin["shawdow-text"]}`}>(Last 30 Days)</div>
+      <div className={`${admin["metric-price"]} ${admin["font-heading"]}`}>$0.00</div>
+    </div>
+    <div className={`${admin["metric-icon"]} ${admin["price-icon"]}`}>
+      <MonetizationOnOutlinedIcon className={`${admin["dashboard-icon"]}`} />
+    </div>
+  </div>
+  <div className={`${admin["sales-metric"]}`}>
+    <div className={`${admin["metric-text"]}`}>
+      <div className={`${admin["metric-title"]} ${admin["font-heading"]}`}>Total Order</div>
+      <div className={`${admin["metric-note"]} ${admin["text-font"]} ${admin["shawdow-text"]}`}>(Last 30 Days)</div>
+      <div className={`${admin["metric-price"]} ${admin["font-heading"]}`}>0</div>
+    </div>
+    <div className={`${admin["metric-icon"]} ${admin["cart-icon"]}`}>
+      <ShoppingCartOutlinedIcon className={`${admin["dashboard-icon"]}`} />
+    </div>
+  </div>
+</div>
 
-      <div className="sales-metrics pt-30">
-        <div className="sales-metric">
-          <div className="metric-text">
-            <div className="metric-title font-heading">Todays Revenue</div>
-            <div className="metric-note text-font shawdow-text"></div>
-            <div className="metric-price font-heading">$0.00</div>
-          </div>
-          <div className="metric-icon today-price-icon">
-            <AttachMoneyOutlinedIcon className="dashboard-icon" />
-          </div>
-        </div>
-        <div className="sales-metric">
-          <div className="metric-text">
-            <div className="metric-title font-heading">Total Customer</div>
-            <div className="metric-note text-font shawdow-text"></div>
-            <div className="metric-price font-heading">0</div>
-          </div>
-          <div className="metric-icon customers-icon">
-            <GroupOutlinedIcon className="dashboard-icon" />
-          </div>
-        </div>
-      </div>
 
-      <div className="history-sale-chart">
+<div className={`${admin["sales-metrics"]} ${admin['pt-30']}`}>
+  <div className={`${admin["sales-metric"]}`}>
+    <div className={`${admin["metric-text"]}`}>
+      <div className={`${admin["metric-title"]} ${admin["font-heading"]}`}>Todays Revenue</div>
+      <div className={`${admin["metric-note"]} ${admin["text-font"]} ${admin["shawdow-text"]}`}></div>
+      <div className={`${admin["metric-price"]} ${admin["font-heading"]}`}>$0.00</div>
+    </div>
+    <div className={`${admin["metric-icon"]} ${admin["today-price-icon"]}`}>
+      <AttachMoneyOutlinedIcon className={`${admin["dashboard-icon"]}`} />
+    </div>
+  </div>
+  <div className={`${admin["sales-metric"]}`}>
+    <div className={`${admin["metric-text"]}`}>
+      <div className={`${admin["metric-title"]} ${admin["font-heading"]}`}>Total Customer</div>
+      <div className={`${admin["metric-note"]} ${admin["text-font"]} ${admin["shawdow-text"]}`}></div>
+      <div className={`${admin["metric-price"]} ${admin["font-heading"]}`}>0</div>
+    </div>
+    <div className={`${admin["metric-icon"]} ${admin["customers-icon"]}`}>
+      <GroupOutlinedIcon className={`${admin["dashboard-icon"]}`} />
+    </div>
+  </div>
+</div>
+
+
+      <div className={admin["history-sale-chart"]}>
         <div id="chart"></div>
       </div>
-      <div className="sales-metrics pt-30">
+      {/* <div className="sales-metrics pt-30">
         <div className="sales-metric">
           <div id="categories-chart">
 
@@ -180,7 +180,7 @@ function Dashboard() {
             <GroupOutlinedIcon className="dashboard-icon" />
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 }

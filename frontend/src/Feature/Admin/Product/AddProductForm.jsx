@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import UploadImage from "../Assets/Images/upload_image.svg";
+import admin from "../../../components/layout/admin_layout/components/css/style.module.scss";
 
 function AddProductForm() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -56,14 +57,16 @@ function AddProductForm() {
     };
 
     const loadImages = async () => {
-      const maxImages = 6; 
+      const maxImages = 6;
       const remainingSlots = maxImages - images.length;
-  
+
       if (files.length > remainingSlots) {
-        toast.info(`The number of photos in the gallery exceeds the allowed number (6 photos)`);
+        toast.info(
+          `The number of photos in the gallery exceeds the allowed number (6 photos)`
+        );
         return;
       }
-  
+
       for (const file of files) {
         try {
           const image = await loadImage(file);
@@ -72,7 +75,7 @@ function AddProductForm() {
           console.error("Error loading image:", error);
         }
       }
-  
+
       setSelectedGallery(images);
     };
 
@@ -134,19 +137,31 @@ function AddProductForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="image-upload">
-        <div className="upload-title">
-          <div className="title font-table-title">Featured Image</div>
-          <div className="description text-font shawdow-text">
-            Upload your product featured image here
+      <div className={admin["image-upload"]}>
+        <div className={admin["upload-title"]}>
+          <div
+            className={`${admin.title} ${admin["font-heading"]} ${admin["font-table-title"]}`}
+          >
+            Image
+          </div>
+          <div
+            className={`${admin.title} ${admin["text-font "]} ${admin["shawdow-text"]}`}
+          >
+            Upload your category image here
           </div>
         </div>
-        <div className="upload-input">
+        <div className={admin["upload-input"]}>
           <label htmlFor="image-upload-input">
-            <img src={UploadImage} alt="upload image" className="upload-icon" />
-            <div className="descriptions text-font">
-              <span className="color-blue upload-image-title blue-text-font">
-                Upload an image{" "}
+            <img
+              src={UploadImage}
+              alt="upload image"
+              className={admin["upload-icon"]}
+            />
+            <div className={`${admin["descriptions"]} ${admin["text-font"]}`}>
+              <span
+                className={`${admin["blue-text-font"]} ${admin["upload-image-title"]}`}
+              >
+                Upload an image
               </span>
               <span>or drag and drop</span>
             </div>
@@ -155,30 +170,41 @@ function AddProductForm() {
             type="file"
             id="image-upload-input"
             name="image"
-            className="image-category"
+            className={`${admin["input-data"]} ${admin["image-category"]}`}
             onChange={handleImageUpload}
           />
-          <div className="images-show feature-logo">
+          <div className={`${admin["images-show"]} ${admin["feature-logo"]}`}>
             {selectedImage && <img src={selectedImage} alt="uploaded image" />}
           </div>
         </div>
       </div>
 
-      <div className="dashed-line"></div>
-
-      <div className="image-upload">
-        <div className="upload-title">
-          <div className="title font-heading font-table-title">Gallery</div>
-          <div className="description text-font shawdow-text">
+      <div className={admin["dashed-line"]}></div>
+      <div className={`${admin["image-upload"]}`}>
+        <div className={`${admin["upload-title"]}`}>
+          <div
+            className={`${admin.title} ${admin["font-heading"]} ${admin["font-table-title"]}`}
+          >
+            Gallery
+          </div>
+          <div
+            className={`${admin.description} ${admin.textFont} ${admin.shawdowText}`}
+          >
             Upload your product image gallery here
           </div>
         </div>
-        <div className="upload-input">
-          <label htmlFor="gallery-image-upload-input">
-            <img src={UploadImage} alt="upload image" className="upload-icon" />
-            <div className="descriptions  text-font">
-              <span className="color-blue upload-image-title blue-text-font">
-                Upload an image{" "}
+        <div className={admin["upload-input"]}>
+          <label htmlFor="image-upload-input">
+            <img
+              src={UploadImage}
+              alt="upload image"
+              className={admin["upload-icon"]}
+            />
+            <div className={`${admin["descriptions"]} ${admin["text-font"]}`}>
+              <span
+                className={`${admin["blue-text-font"]} ${admin["upload-image-title"]}`}
+              >
+                Upload an image
               </span>
               <span>or drag and drop</span>
             </div>
@@ -187,11 +213,11 @@ function AddProductForm() {
             type="file"
             id="gallery-image-upload-input"
             name="galleryImage"
-            className="image-category"
+            className={`${admin["image-category"]}`}
             onChange={handleGalleryUpload}
             multiple
           />
-          <div className="images-show ">
+          <div className={`${admin["images-show"]}`}>
             {selectedGallery.map((image, index) => (
               <img key={index} src={image} alt={`uploaded image ${index}`} />
             ))}
@@ -199,87 +225,73 @@ function AddProductForm() {
         </div>
       </div>
 
-      <div className="dashed-line"></div>
+      <div className={admin["dashed-line"]}></div>
 
-      <div className="row cate-info-upload">
-        <div className="upload-title">
-          <div className="title font-heading font-table-title">
+      <div className={`${admin["cate-info-upload"]}`}>
+        <div className={`${admin["upload-title"]}`}>
+          <div
+            className={`${admin.title} ${admin["font-heading"]} ${admin["font-table-title"]}`}
+          >
             Categories & Manufacture
           </div>
-          <div className="description text-font shawdow-text">
+          <div
+            className={`${admin.description} ${admin.textFont} ${admin.shawdowText}`}
+          >
             Select product categories and manufacture from here
           </div>
         </div>
-        <div className="upload-input">
-          <select name="category" className="input-data" defaultValue="">
-            <option value="" disabled>
-              Select Category
-            </option>
-            <option value="1">1</option>
-            <option value="2">2</option>
+
+        <div className={admin["upload-input"]}>
+          <select name="icon" id="" className={admin["input-data"]}>
+            <option value="">Select Categories</option>
           </select>
-
-          <div className="value">
-            <div className="selected-values">
-              {selectedValues.map((value) => (
-                <div key={value} className="selected-value">
-                  {value}
-                  <IconButton
-                    aria-label="delete"
-                    size="small"
-                    onClick={() => handleDeleteValue(value)}
-                  >
-                    <DeleteIcon className="icon" />
-                  </IconButton>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <select name="manufacturer" id="" className="input-data">
+          <select name="parent_category" id="" className={admin["input-data"]}>
             <option value="">Select Manufacturer</option>
           </select>
         </div>
       </div>
 
-      <div className="dashed-line"></div>
+      <div className={admin["dashed-line"]}></div>
 
-      <div className="row cate-info-upload">
-        <div className="upload-title">
-          <div className="title font-heading font-table-title">Description</div>
-          <div className="description text-font shawdow-text">
-            Add your product description and necessary information from here
+      <div className={`${admin["cate-info-upload"]}`}>
+        <div className={`${admin["upload-title"]}`}>
+          <div
+            className={`${admin.title} ${admin["font-heading"]} ${admin["font-table-title"]}`}
+          >
+           Description
+          </div>
+          <div
+            className={`${admin.description} ${admin.textFont} ${admin.shawdowText}`}
+          >
+           Add your product description and necessary information from here
           </div>
         </div>
-        <div className="upload-input">
-          <input
+        <div className={admin["upload-input"]}>
+        <input
             id="outlined-basic"
             placeholder="Name"
             variant="outlined"
-            className="input-data"
+            className={admin["input-data"]}
             name="name"
           />
           <input
             id="outlined-basic"
             placeholder="Price"
             variant="outlined"
-            className="input-data"
+            className={admin["input-data"]}
             name="price"
-            type="number"
           />
           <input
             id="outlined-basic"
             placeholder="Sale Price"
             variant="outlined"
-            className="input-data"
-            name="sale_price"
-            type="number"
+            className={admin["input-data"]}
+            name="sale_rice"
           />
           <input
             id="outlined-basic"
             placeholder="Quantity"
-            variant="outlined"
-            className="input-data"
+            className={admin["input-data"]}
             name="quantity"
             type="number"
           />
@@ -289,7 +301,7 @@ function AddProductForm() {
             cols="30"
             rows="10"
             defaultValue="Description"
-            className="input-data"
+            className={admin["input-data"]}
           ></textarea>
           <label htmlFor="status">
             <input type="radio" name="status" id="" /> Published
@@ -299,16 +311,19 @@ function AddProductForm() {
         </div>
       </div>
 
-      <div className="dashed-line"></div>
-
-      <div className="row cate-info-upload">
-        <div className="upload-title">
-          <div className="title font-heading font-table-title">Attributes</div>
-          <div className="description text-font shawdow-text">
+      <div className={admin["dashed-line"]}></div>
+      <div className={`${admin["cate-info-upload"]}`}>
+        <div className={`${admin["upload-title"]}`}>
+          <div
+            className={`${admin.title} ${admin["font-heading"]} ${admin["font-table-title"]}`}
+          >Attributes</div>
+          <div
+            className={`${admin.description} ${admin.textFont} ${admin.shawdowText}`}
+          >
             Select your product's attributes from here
           </div>
         </div>
-        <div className="upload-input">
+        <div className={admin["upload-input"]}>
           <label>
             <input type="checkbox" name="color" value="apple" /> Apple
           </label>
@@ -321,12 +336,12 @@ function AddProductForm() {
         </div>
       </div>
 
-      <div className="submit-btn">
-        <Link to="/admin/products" className="btn-white">
+      <div className={admin["submit-btn"]}>
+        <Link to="/admin/categories" className={admin["btn-white"]}>
           Back
         </Link>
-        <button className="btn-blue" type="submit">
-          Add product
+        <button className={admin["btn-blue"]} type="submit">
+          Add Category
         </button>
       </div>
     </form>

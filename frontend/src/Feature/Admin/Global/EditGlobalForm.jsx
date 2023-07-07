@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import UploadImage from "../Assets/Images/upload_image.svg";
+import admin from "../../../components/layout/admin_layout/components/css/style.module.scss";
+
 
 function EditGlobalForm() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -125,18 +127,18 @@ function EditGlobalForm() {
   };
   return (
     <form onSubmit={handleSubmit}>
-      <div className="image-upload">
-        <div className="upload-title">
-          <div className="title font-table-title">Logo</div>
+          <div className={admin["image-upload"]}>
+         <div className={admin["upload-title"]}>
+          <div className={`${admin.title} ${admin["font-heading"]}`}>Logo</div>
           <div className="description  text-font shawdow-text">
             Upload your website logo here
           </div>
         </div>
-        <div className="upload-input">
+        <div className={admin["upload-input"]}>
           <label htmlFor="image-upload-input">
-            <img src={UploadImage} alt="upload image" className="upload-icon" />
-            <div className="descriptions text-font">
-              <span className="color-blue upload-image-title blue-text-font">
+            <img src={UploadImage} alt="upload image" className={admin["upload-icon"]} />
+         <div className={`${admin["descriptions"]} ${admin["text-font"]}`}>
+             <span className={`${admin["blue-text-font"]} ${admin["upload-image-title"]}`}>
                 Upload an image{" "}
               </span>
               <span>or drag and drop</span>
@@ -146,7 +148,8 @@ function EditGlobalForm() {
             type="file"
             id="image-upload-input"
             name="image"
-            className="image-category"
+                      className={`${admin["input-data"]} ${admin["image-category"]}`}
+
             onChange={handleImageUpload}
           />
           <div className="images-show feature-logo">
@@ -155,20 +158,20 @@ function EditGlobalForm() {
         </div>
       </div>
 
-      <div className="dashed-line"></div>
+      <div className={admin["dashed-line"]}></div>
 
-      <div className="image-upload">
-        <div className="upload-title">
+          <div className={admin["image-upload"]}>
+         <div className={admin["upload-title"]}>
           <div className="title font-heading font-table-title">Slider</div>
-          <div className="description text-font shawdow-text">
+          <div className={`${admin.title} ${admin["text-font "]} ${admin["shawdow-text"]}`}>
             Upload your website slider gallery here
           </div>
         </div>
-        <div className="upload-input">
+        <div className={admin["upload-input"]}>
           <label htmlFor="gallery-image-upload-input">
-            <img src={UploadImage} alt="upload image" className="upload-icon" />
+            <img src={UploadImage} alt="upload image" className={admin["upload-icon"]} />
             <div className="descriptions  text-font">
-              <span className="color-blue upload-image-title blue-text-font">
+             <span className={`${admin["blue-text-font"]} ${admin["upload-image-title"]}`}>
                 Upload an image{" "}
               </span>
               <span>or drag and drop</span>
@@ -178,7 +181,8 @@ function EditGlobalForm() {
             type="file"
             id="gallery-image-upload-input"
             name="galleryImage"
-            className="image-category"
+                      className={`${admin["input-data"]} ${admin["image-category"]}`}
+
             onChange={handleGalleryUpload}
             multiple
           />
@@ -195,62 +199,62 @@ function EditGlobalForm() {
         </div>
       </div>
 
-      <div className="dashed-line"></div>
-      <div className="cate-info-upload">
-        <div className="upload-title">
-          <div className="title font-table-title">Description</div>
-          <div className="description text-font shawdow-text">
+      <div className={admin["dashed-line"]}></div>
+    <div className={admin['cate-info-upload']}>
+         <div className={admin["upload-title"]}>
+          <div className={`${admin.title} ${admin["font-heading"]}`}>Description</div>
+          <div className={`${admin.title} ${admin["text-font "]} ${admin["shawdow-text"]}`}>
             Add website description and necessary information from here
           </div>
         </div>
-        <div className="upload-input">
+        <div className={admin["upload-input"]}>
           <input
             type="text"
-            className="input-data"
+            className={admin["input-data"]}
             name="name"
             placeholder="Full Name"
           />
           <input
             type="text"
-            className="input-data"
+            className={admin["input-data"]}
             name="address"
             placeholder="Address"
           />
           <input
             type="text"
-            className="input-data"
+            className={admin["input-data"]}
             name="email"
             placeholder="Email"
           />
         </div>
       </div>
 
-      <div className="dashed-line"></div>
-      <div className="cate-info-upload">
-        <div className="upload-title">
-          <div className="title font-table-title">
+      <div className={admin["dashed-line"]}></div>
+    <div className={admin['cate-info-upload']}>
+         <div className={admin["upload-title"]}>
+          <div className={`${admin.title} ${admin["font-heading"]}`}>
             Social networks of the website
           </div>
-          <div className="description text-font shawdow-text">
+          <div className={`${admin.title} ${admin["text-font "]} ${admin["shawdow-text"]}`}>
             Add links to your social network pages if available
           </div>
         </div>
-        <div className="upload-input">
+        <div className={admin["upload-input"]}>
           <input
             type="text"
-            className="input-data"
+            className={admin["input-data"]}
             name="facebook"
             placeholder="Facebook"
           />
           <input
             type="text"
-            className="input-data"
+            className={admin["input-data"]}
             name="instagram"
             placeholder="Instagram"
           />
           <input
             type="text"
-            className="input-data"
+            className={admin["input-data"]}
             name="twitter"
             placeholder="Twitter"
           />
